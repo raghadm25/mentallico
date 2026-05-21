@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(find C:/Users/User/Downloads/Mentallico -type f -name *.json ! -path */node_modules/* ! -path */.vite/*)",
+      "Bash(.venv/Scripts/python manage.py migrate therapists)"
+    ]
+  }
+}

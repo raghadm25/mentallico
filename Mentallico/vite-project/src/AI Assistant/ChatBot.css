@@ -1,0 +1,80 @@
+.chat-page-container {
+  display: flex;
+  height: 100vh;
+  background-color: #F3F4F6;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  background: linear-gradient(180deg, #A78BFA 0%, #7C3AED 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo { padding: 30px 20px; font-size: 24px; }
+.search-box { padding: 0 20px; margin-bottom: 20px; }
+.search-box input {
+  width: 100%; padding: 12px; border-radius: 20px; border: none;
+  background: rgba(255,255,255,0.2); color: white;
+}
+
+.history-list { flex: 1; padding: 0 10px; }
+.history-item { padding: 12px 15px; font-size: 14px; cursor: pointer; border-radius: 8px; }
+.history-item:hover { background: rgba(255,255,255,0.1); }
+
+.user-profile { background: #111827; padding: 20px; display: flex; align-items: center; gap: 10px; }
+.user-profile img { width: 40px; height: 40px; border-radius: 50%; }
+
+/* Main Chat */
+.main-chat { flex: 1; display: flex; flex-direction: column; }
+.chat-nav { padding: 20px; display: flex; justify-content: flex-end; }
+.new-chat-btn { background: white; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
+
+.chat-content { flex: 1; max-width: 900px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; padding: 20px; }
+.welcome-text { font-size: 40px; color: #111827; margin-bottom: 40px; font-weight: bold; }
+
+.messages-container { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+.msg { display: flex; }
+.bot-msg { justify-content: flex-start; }
+.user-msg { justify-content: flex-end; }
+.bubble { padding: 15px 20px; border-radius: 20px; max-width: 70%; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.bot-msg .bubble { background: white; color: #374151; }
+.user-msg .bubble { background: #A78BFA; color: white; }
+
+/* Input Area - التعديل هنا */
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 40px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.input-wrapper input {
+  flex: 1;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 40px;
+  outline: none;
+  font-size: 16px;
+  /* اللون الأسود للكتابة */
+  color: #000000 !important; 
+}
+
+.action-buttons { display: flex; gap: 10px; padding-right: 10px; }
+.mic-btn, .send-btn {
+  width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.mic-btn { background: #F3F4F6; }
+.mic-btn.active { background: #EF4444; color: white; animation: shake 0.5s infinite; }
+.send-btn { background: #7C3AED; color: white; }
+
+@keyframes shake {
+  0% { transform: rotate(0deg); } 25% { transform: rotate(5deg); } 75% { transform: rotate(-5deg); } 100% { transform: rotate(0deg); }
+}

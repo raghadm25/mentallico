@@ -1,0 +1,125 @@
+:root {
+  --primary-bg: #7f89e9;
+  --card-bg: #f2f3fb;
+  --title-color: #1e1e1e;
+  --text-color: #6b7280;
+  --icon-color: #7f89e9;
+}
+
+/* ===== Section ===== */
+.our-values {
+  width: 100%;
+  padding: 96px 24px;
+  background-color: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== Title ===== */
+.our-values-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 64px;
+}
+
+/* ===== Cards Layout ===== */
+.values-cards {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== Card ===== */
+.value-card {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  padding: 48px 32px;
+  width: 360px;
+  min-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Icon ===== */
+.value-icon {
+  width: 64px;
+  height: 64px;
+  background-color: #ffffff;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 28px;
+}
+
+.value-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* ===== Card Title ===== */
+.value-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-bottom: 16px;
+}
+
+/* ===== Card Text ===== */
+.value-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: 1.7;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 992px) {
+  .our-values-title {
+    font-size: 34px;
+  }
+
+  .value-card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 576px) {
+  .our-values {
+    padding: 64px 16px;
+  }
+
+  .our-values-title {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .value-card {
+    padding: 40px 24px;
+    min-height: auto;
+  }
+}

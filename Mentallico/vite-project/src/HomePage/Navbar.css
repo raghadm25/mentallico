@@ -1,0 +1,284 @@
+.navbar {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 80px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  font-size: 32px; 
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #7F89E9;
+  margin: 0;
+}
+
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1A2E12;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a.active,
+.navbar-links a:hover {
+  color: #7F89E9;
+}
+
+.signup-btn {
+  padding: 10px 30px;
+  border-radius: 30px;
+  background: #7F89E9; 
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  color: #F0F0F0;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+
+.arrow-toggle-btn {
+  background: transparent !important;
+  border: none !important;           
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.nav-arrow {
+  width: 32px ;
+  display: block;
+}
+
+
+.dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;       
+  left: 0;         
+  background-color:#D2D5DE;
+  border-radius: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0px 0 0 0; 
+  min-width: 0px;   
+  z-index: 1000;
+}
+
+.dropdown-menu li a {
+  color: #1A2E12 !important;
+  padding: 10px 20px;
+  display: block;
+  font-size: 16px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.dropdown-menu li a:hover {
+  
+  color: #7F89E9 !important;
+}
+
+.nav-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* ── User menu wrapper ──────────────────────────────────────── */
+.user-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Greeting button ────────────────────────────────────────── */
+.user-greeting-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(127, 137, 233, 0.12);
+  border: 1.5px solid rgba(127, 137, 233, 0.35);
+  border-radius: 30px;
+  padding: 7px 16px 7px 7px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A2E12;
+  transition: background 0.2s, border-color 0.2s;
+}
+.user-greeting-btn:hover {
+  background: rgba(127, 137, 233, 0.22);
+  border-color: #7F89E9;
+}
+
+/* ── Avatar circle ──────────────────────────────────────────── */
+.user-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7F89E9, #b57ed4);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Greeting text ──────────────────────────────────────────── */
+.user-greeting-text {
+  white-space: nowrap;
+}
+
+/* ── Caret arrow ────────────────────────────────────────────── */
+.user-caret {
+  color: #7F89E9;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.user-caret.rotated {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown panel ─────────────────────────────────────────── */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border: 1px solid rgba(127, 137, 233, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(127, 137, 233, 0.18), 0 2px 8px rgba(0,0,0,0.08);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeDropdown 0.15s ease;
+}
+
+@keyframes fadeDropdown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Dropdown header (identity) ─────────────────────────────── */
+.user-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(127,137,233,0.08), rgba(181,126,212,0.08));
+}
+
+.user-dropdown-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7F89E9, #b57ed4);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-dropdown-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1A2E12;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.user-dropdown-divider {
+  height: 1px;
+  background: rgba(127, 137, 233, 0.15);
+  margin: 0;
+}
+
+/* ── Dropdown items ─────────────────────────────────────────── */
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1A2E12;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+  box-sizing: border-box;
+}
+.user-dropdown-item:hover {
+  background: rgba(127, 137, 233, 0.08);
+  color: #7F89E9;
+}
+
+.dropdown-icon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── Logout item ────────────────────────────────────────────── */
+.logout-item {
+  color: #c0392b;
+}
+.logout-item:hover {
+  background: rgba(192, 57, 43, 0.06);
+  color: #c0392b;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 20px 40px;
+  }
+  .navbar-links {
+    display: none;
+  }
+}

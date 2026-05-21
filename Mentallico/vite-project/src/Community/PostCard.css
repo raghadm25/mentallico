@@ -1,0 +1,106 @@
+.post-container {
+    width: 95%;
+    max-width: 1243px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-main-card {
+    width: 100%;
+    padding: clamp(15px, 3vw, 30px) clamp(20px, 5vw, 60px);
+    box-sizing: border-box;
+    border-radius: 15px 15px 0 0;
+    border: 3px solid #D2D5DE;
+    background: #ffffff;
+    min-height: 200px;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: clamp(45px, 6vw, 60px);
+    height: clamp(45px, 6vw, 60px);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 600;
+    margin: 0;
+}
+
+.post-content {
+    width: 100%;
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.post-actions-bar {
+    width: 100%;
+    min-height: 72px;
+    border-radius: 0 0 15px 15px;
+    background: #D2D5DE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid #D2D5DE;
+    border-top: none;
+    box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+    padding: 5px 0;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(5px, 1.5vw, 12px);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.8vw, 20px);
+    font-weight: 500;
+    flex: 1;
+    transition: opacity 0.2s;
+}
+
+.action-icon {
+    width: clamp(24px, 4vw, 40px);
+    height: clamp(24px, 4vw, 40px);
+    object-fit: contain;
+}
+
+.divider {
+    width: 2px;
+    height: 40px;
+    background: #B0B3BD;
+}
+
+/* للموبايل الصغير جداً */
+@media (max-width: 480px) {
+    .post-actions-bar {
+        min-height: 60px;
+    }
+    .divider {
+        height: 25px;
+    }
+}

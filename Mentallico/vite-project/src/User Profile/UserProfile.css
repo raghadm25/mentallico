@@ -1,0 +1,651 @@
+:root {
+  --Base: #F0F0F0;
+  --Primary: #7F89E9;
+  --Secondary: #A87CC7;
+  --Color-2: #1A2E12;
+  --light-gray: #D2D5DE;
+  --Accent-Green: #658852;
+  --Gradient-2: linear-gradient(90deg, #7F89E9 5.97%, #A87CC7 59.39%, #658852 111.79%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--Base);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.profile-page-container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--Base);
+  position: relative;
+}
+
+/* User Background Header */
+.user-background {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 440px;
+  background: var(--Gradient-2);
+}
+
+/* Profile Section */
+.profile-info-header {
+  padding: 0 108px;
+  margin-top: -173px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.profile-pic {
+  width: 347px;
+  height: 347px;
+  border-radius: 512px;
+  border: 10px solid var(--Primary);
+  background: lightgray 50% / cover no-repeat;
+  object-fit: cover;
+}
+
+.user-name {
+  color: var(--Color-2);
+  font-size: 55px;
+  font-weight: 500;
+  line-height: 118.9%;
+  letter-spacing: -2.75px;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  margin-left: 1300px;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.edit-profile-btn:hover {
+  background: var(--Primary);
+  color: var(--Color-2);
+
+}
+
+.edit-profile-btn {
+  display: flex;
+  width: 234px;
+  height: 48px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px; 
+  border: 2px solid var(--Primary);
+  background: transparent;
+  color: var(--Primary);
+  cursor: pointer;
+}
+
+.settings-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Today's Reminder */
+.reminder-section {
+  width: 1224px;
+  height: 161px;
+  padding: 20px 30px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-radius: 30px 30px 30px 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(127, 137, 233, 0.35) 0%,
+    rgba(168, 124, 199, 0.35) 60%,
+    rgba(240, 240, 240, 0) 100%
+  );
+
+  box-shadow: 0 4px 4px 0 rgba(127, 137, 233, 0.11);
+  color: var(--Color-2);
+}
+
+.reminder-title {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -1.6px;
+  text-align: start;
+}
+
+.reminder-text {
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -1.6px;
+  text-align: center;
+}
+
+/* Journal Section */
+.journal-header {
+  width: 1224px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-title {
+  color: var(--Color-2);
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -2.4px;
+  align-self: start;
+}
+
+.date-chip {
+  display: flex;
+  width: 143px;
+  padding: 10px;
+  justify-content: space-between;
+  align-self: start;
+  border-radius: var(--Corner-Radius---Buttons, 30px);
+  background: var(--light-gray);
+  color: var(--Primary);
+  font-size: 24px;
+}
+
+.week-journal-container {
+  width: 1224px;
+  height: 338px;
+  padding: 40px 60px;
+  margin: 40px auto;
+  border-radius: 500px;
+  background: var(--Color-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* wrapper for days */
+.days-wrapper {
+  display: flex;
+  gap: 54px;
+}
+
+/* each day */
+.day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.day-pill {
+  width: 88px;
+  height: 170px;
+  border-radius: 44px;
+  position: relative;
+
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 24px;
+}
+
+.day-pill.active { background: var(--Primary); }
+.day-pill.inactive { background: var(--light-gray); }
+
+.pill-icons {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+}
+
+.ellipse-bg {
+  width: 36px;
+  height: 36px;
+}
+
+.true-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+}
+
+/* day text */
+.day-name {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* 5. Mood Tracker Section Container */
+.mood-tracker-section {
+  width: 100%;
+  max-width: 1224px;
+  margin: 60px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* الخط الرمادي العلوي */
+.mood-header-line {
+  width: 100%;
+  max-width: 1127px;
+  height: 1px;
+  background: #A8A8A8;
+  margin-bottom: 25px;
+}
+
+/* عنوان القسم الخارجي */
+.mood-title-text {
+  color: #1A2E12;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: -2.4px;
+  margin-bottom: 30px;
+}
+
+/* الحاوية الأساسية (الـ Card) */
+.calendar-card {
+  width: 100%;
+  max-width: 1189px;
+  background: var(--light-gray);
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: clamp(20px, 4vw, 50px);
+  gap: 10px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* العنوان الداخلي (الشهر والأسهم) */
+.inner-calendar-header {
+  grid-column: 1 / span 7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inner-section-title {
+  font-size: clamp(24px, 4vw, 40px);
+  color: #1A2E12;
+}
+
+/* أسماء الأيام */
+.calendar-header-day {
+  color: #595959;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 15px);
+}
+
+/* الخلية */
+.calendar-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* صور المخ */
+.mood-group-img {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+  transform: scale(1.3);
+}
+
+/* الكبسولات الزرقاء */
+.mood-status-chip {
+  display: flex;
+  width: 90%;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: var(--Primary);
+  color: var(--Base);
+  font-size: clamp(14px, 2vw, 20px);
+  text-align: center;
+}
+
+/* الإحصائيات في الأسفل */
+.inner-mood-insight {
+  grid-column: 1 / span 7;
+  text-align: center;
+  margin-top: 30px;
+  font-size: clamp(18px, 3vw, 24px);
+  color: #595959;
+}
+
+.saved-collection-section {
+  width: 100%;
+  max-width: 1224px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.collection-arrow-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.collection-arrow-icon:hover {
+  transform: scale(1.1);
+}
+
+/* =============================================
+   HABITS PROGRESS SECTION - UPDATED
+   ============================================= */
+.habits-progress-section {
+  display: flex;
+  width: 100%;
+  max-width: 1190px;
+  height: auto;
+  min-height: 446px;
+  flex-direction: column;
+  align-items: center;
+  gap: 86px;
+  margin: 80px auto;
+}
+
+.habits-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.habit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.habit-card {
+  width: 270px;
+  height: 270px;
+  aspect-ratio: 1/1;
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* الألوان الخاصة بكل كارت */
+.gratitude-bg { background: #858852; }
+.reading-bg { background: #C18DA3; }
+.breathing-bg { background: #527988; }
+
+/* =============================================
+   SVG PROGRESS RING STYLES
+   ============================================= */
+.progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 230px;
+  height: 230px;
+  transform-origin: center;
+}
+
+.progress-ring-circle {
+  fill: none;
+  stroke-width: 30;
+}
+
+/* الدائرة الخلفية (Background) */
+.progress-ring-bg {
+  opacity: 0.3;
+}
+.gratitude-bg .progress-ring-bg {
+  stroke: rgba(198, 205, 146, 0.37);
+}
+.reading-bg .progress-ring-bg {
+  stroke: rgba(158, 80, 114, 0.37);
+}
+.breathing-bg .progress-ring-bg {
+  stroke: rgba(146, 191, 205, 0.37);
+}
+
+/* القوس (Progress Arc) */
+.progress-ring-progress {
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+/* حساب القوس: محيط الدائرة = 2πr = 2 × 3.14159 × 115 ≈ 722 */
+/* لعرض نصف دائرة (50%) = strokeDashoffset: 361 */
+.gratitude-progress {
+  stroke: rgba(198, 205, 146, 1);
+  stroke-dasharray: 722;
+  stroke-dashoffset: 461; /* نصف دائرة */
+}
+
+.reading-progress {
+  stroke: rgba(158, 80, 114, 1);
+  stroke-dasharray: 722;
+  stroke-dashoffset: 361;
+}
+
+.breathing-progress {
+  stroke: rgba(146, 182, 205, 1);
+  stroke-dasharray: 722;
+  stroke-dashoffset: 261;
+}
+
+/* الأيقونات في المنتصف */
+.habit-icon {
+  width: 90px;
+  height: auto;
+  z-index: 10;
+  opacity: 0.9;
+  position: relative;
+}
+
+.breathing-icon-placeholder {
+  z-index: 10;
+  position: relative;
+}
+
+.breathing-icon-placeholder svg {
+  width: 60px;
+  height: auto;
+}
+
+/* Typography */
+.habit-name {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 118.942%;
+  letter-spacing: -1.4px;
+  width: 270px;
+}
+
+.gratitude-text { color: #2C2E12; }
+.reading-text { color: #9E5072; }
+.breathing-text { color: #527988; }
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+@media (max-width: 1024px) {
+  .habits-progress-section {
+    gap: 40px;
+    height: auto;
+  }
+  
+  .habit-card {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .progress-ring {
+    width: 170px;
+    height: 170px;
+  }
+  
+  .progress-ring-circle {
+    stroke-width: 14;
+  }
+  
+  .habit-name {
+    font-size: 22px;
+    width: 200px;
+  }
+
+  .profile-info-header {
+    padding: 0 20px;
+    align-items: center;
+    margin-top: -100px;
+  }
+
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+    border-width: 5px;
+  }
+
+  .user-name {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .reminder-section {
+    width: 90%;
+    height: auto;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  .reminder-title, .reminder-text {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .journal-header {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .week-journal-container {
+    width: 95%;
+    height: auto;
+    border-radius: 50px;
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .days-wrapper {
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .calendar-card {
+    padding: 15px;
+    gap: 5px;
+  }
+
+  .mood-group-img {
+    transform: scale(1);
+  }
+
+  .inner-section-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .edit-profile-btn {
+    width: 100%;
+  }
+
+  .day-pill {
+    width: 60px;
+    height: 120px;
+  }
+
+  .collection-arrow-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .habit-card {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .progress-ring {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .progress-ring-circle {
+    stroke-width: 12;
+  }
+  
+  .habit-icon {
+    width: 50px;
+  }
+  
+  .breathing-icon-placeholder svg {
+    width: 45px;
+  }
+  
+  .habit-name {
+    font-size: 18px;
+    width: 160px;
+  }
+}

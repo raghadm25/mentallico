@@ -1,0 +1,223 @@
+.footer {
+  position: relative;
+  width: 100%;
+  height: 455px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #7F89E9, #A87CC7, #658852);
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-logo {
+  position: absolute;
+  left: 8.85%;
+  top: 17.82%;
+  font-weight: 600;
+  font-size: 55px;
+  letter-spacing: -0.1em;
+  color: #1A2E12;
+}
+
+.footer-slogan {
+  position: absolute;
+  left: 8.85%;
+  top: 34.94%;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.footer-newsletter-title {
+  position: absolute;
+  left: 8.85%;
+  top: 49.56%;
+  font-size: 12px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #D2D5DE;
+}
+
+.footer-subscribe {
+  position: absolute;
+  left: 8.85%;
+  top: 56.82%;
+  display: flex;
+  border: 1px solid #D2D5DE;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.footer-subscribe input {
+  padding: 10px 23px;
+  background: transparent;
+  border: none;
+  color: #D9D9D9;
+  font-size: 10px;
+  outline: none;
+}
+.footer-subscribe input::placeholder {
+  color: #D2D5DE;
+}
+
+.footer-subscribe button {
+  padding: 9px 23px;
+  background: #D9D9D9;
+  border: none;
+  color: #7F89E9;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.footer-section {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.footer-section h4 {
+  font-size: 12px;
+  letter-spacing: 0.19em;
+  color: #D2D5DE;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.footer-section a {
+  font-size: 12px;
+  color: #F0F0F0;
+  line-height: 1.3;
+  margin: 4px 0;
+  text-decoration: none; /* عشان نشيل الخط اللي تحت الكلام */
+  transition: 0.3s;
+}
+
+.footer-company { left: 34.75%; top: 34.33%; }
+.footer-links { left: 46.68%; top: 34.33%; }
+.footer-contact { left: 61.12%; top: 34.33%; }
+
+
+.footer-app-section {
+  position: absolute;
+  left: 80.56%;
+  top: 34.33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 15px;
+}
+
+.footer-app-title {
+  font-size: 12px;
+  letter-spacing: 0.19em;
+  color: #D2D5DE;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+
+.footer-img {
+  height: 145px;
+  max-width: 140px;
+  border-radius: 15px;
+}
+
+.footer-bottom {
+  position: absolute;
+  left: 8.9%;
+  right: 8.86%;
+  top: 82.31%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 12px;
+  letter-spacing: 0.19em;
+  color: #F0F0F0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.footer-social img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.footer-section a:hover {
+  color: #1A2E12; 
+  padding-left: 5px; 
+}
+
+.footer-contact{
+  color: #F0F0F0;
+}
+
+.footer-social a {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.footer-social a:hover {
+  transform: scale(1.2); /* تكبير الأيقونة عند الوقوف عليها */
+}
+
+/* تعديل بسيط للـ Button عشان يكون تفاعلي أكتر */
+.footer-subscribe button:hover {
+  background: #D9D9D9;
+  color: #1A2E12;
+  
+}
+
+
+
+.footer-subscribe button:hover {
+  background: #D9D9D9;
+  color: linear-gradient(90deg, Primary 5.97%, Secondary 59.39%, Color 111.79%);;
+}
+
+
+@media (max-width: 768px) {
+  .footer {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo,
+  .footer-slogan,
+  .footer-newsletter-title,
+  .footer-subscribe,
+  .footer-section,
+  .footer-company,
+  .footer-links,
+  .footer-contact,
+  .footer-app-section,
+  .footer-bottom {
+    position: static;
+    left: auto;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .footer-subscribe {
+    justify-content: center;
+    width: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+}

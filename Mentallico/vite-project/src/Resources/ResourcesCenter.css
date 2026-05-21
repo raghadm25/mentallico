@@ -1,0 +1,74 @@
+/* التنسيق العام والترحيب */
+.resources-page-wrapper {
+  padding: 100px 8% 50px;
+  background: linear-gradient(180deg, #FDFCFB 0%, #E2D1F9 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.res-header h1 {
+  font-size: 52px;
+  font-weight: 700;
+  color: #1A2E12;
+  margin-bottom: 50px;
+}
+
+.brand-color { color: #7F89E9; }
+
+/* قسم What we offer */
+.offers-section { margin-bottom: 100px; }
+.section-title { font-size: 28px; margin-bottom: 30px; color: #1A2E12; }
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.offer-card {
+  padding: 40px 30px;
+  border-radius: 30px;
+  text-align: center;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.purple-bg { background-color: #B298D6; color: rgb(21, 18, 18); }
+.grey-bg { background-color: #DDE1E7; color: #7F89E9; }
+
+/* السلايدر والأسهم */
+.res-section { margin-bottom: 80px; position: relative; }
+.res-section-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; color: #000000;}
+.slider-controls { display: flex; gap: 15px; }
+.arrow-btn {
+  width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd;
+  background: rgb(25, 23, 23); cursor: pointer; transition: 0.3s; font-size: 18px;
+}
+.arrow-btn:hover { background: #7F89E9; color: rgb(6, 4, 4); border-color: #7F89E9; }
+
+/* القائمة الأفقية */
+.horizontal-list {
+  display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth;
+  padding-bottom: 20px; scrollbar-width: none;
+}
+.horizontal-list::-webkit-scrollbar { display: none; }
+
+.card-item {
+  flex: 0 0 calc(33.333% - 20px); /* يظهر 3 كروت بالظبط في المساحة */
+  text-decoration: none; color: inherit; background: white; 
+  padding: 15px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.img-container { width: 100%; height: 380px; border-radius: 20px; overflow: hidden; }
+.img-container img { width: 100%; height: 100%; object-fit: cover; }
+.square-card .img-container { height: 260px; }
+
+/* قسم العادات تحت */
+.habits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.habit-box {
+  padding: 40px 20px; border-radius: 25px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 15px;
+}
+.h-green { background: #8E9B7B; }
+.h-purple { background: #C4A4D4; }
+.h-blue { background: #7A9FB0; }
+.h-olive { background: #9EA06B; }

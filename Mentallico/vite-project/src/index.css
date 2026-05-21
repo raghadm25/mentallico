@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+:root {
+  font-family: 'Poppins', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --primary: #7F89E9;
+  --secondary: #A87CC7;
+  --base: #F0F0F0;
+  --dark-green: #1A2E12;
+  --green: #658852;
+  --text-gray: #595959;
+  --light-gray: #D2D5DE;
+  --white: #FFFFFF;
+  --white-transparent: #FFFFFF33;
+  --main-gradient: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+
+  color: var(--dark-green);
+  background-color: var(--base);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  display: block;
+  background: var(--base);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* تدرج لوني يحاكي الإضاءة اللي في الصورة */
+  background: radial-gradient(circle at top left, #eaf5eb 0%, transparent 40%),
+              radial-gradient(circle at bottom right, #eef2ff 0%, transparent 40%),
+              #fcfcfc; /* لون أساسي أبيض */
+  min-height: 100vh;
+}
+

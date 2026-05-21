@@ -1,0 +1,143 @@
+.experts-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 1;
+}
+
+.experts-section::before {
+  content: '';
+  position: absolute;
+  top: -250px; 
+  left: -200px;
+  width: 700px;
+  height: 700px;
+  z-index: -1; 
+  filter: blur(150px); 
+  opacity: 0.4;
+  background: rgba(127, 137, 233, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.experts-section::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  z-index: -1;
+  filter: blur(150px); 
+  opacity: 0.4;
+  background: rgba(101, 136, 82, 0.5); 
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.experts-section h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 60px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.experts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  max-width: 1173px;
+  position: relative;
+  z-index: 2;
+}
+
+.expert-card {
+  width: 270px;
+  height: 320px;
+  border-radius: 15px;
+  background: rgba(101, 136, 82, 0.28);
+  box-shadow: 0 4px 4px 0 rgba(26, 46, 18, 0.08), 
+              0 4px 11.6px 0 rgba(127, 137, 233, 0.43), 
+              -4px 0 13px 0 rgba(168, 124, 199, 0.22) inset, 
+              2px 0 7.7px 0 rgba(127, 137, 233, 0.23) inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.expert-card:hover {
+  transform: translateY(-10px);
+}
+
+.image-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  padding: 3px;
+  background: transparent;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF; 
+}
+
+.expert-card h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.expert-card p {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-gray);
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .experts-section::before,
+  .experts-section::after {
+    width: 400px;
+    height: 400px;
+    filter: blur(100px);
+  }
+  .experts-section::before { left: -100px; top: -150px; }
+  .experts-section::after { right: -100px; bottom: -150px; }
+
+  .experts-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .expert-card {
+    width: 100%;
+    max-width: 320px;
+  }
+}

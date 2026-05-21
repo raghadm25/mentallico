@@ -1,0 +1,92 @@
+.outer-bg {
+  background-color: #d1d5db;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-wrapper {
+  display: flex;
+  width: 772px; 
+  height: 479px; 
+  padding: 40px; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  border-radius: 40px;
+  background: #F5F5F7; 
+  box-shadow: 0px 15px 50px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  gap: 30px;
+}
+
+.title {
+  color: #1a2e1a;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.brains-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.brain-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  width: 110px; 
+  height: 85px;
+}
+
+.brain-item svg {
+  width: 102px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+
+.brain-item.selected {
+  transform: scale(1.2) translateY(-10px);
+
+  filter: drop-shadow(0 5px 15px rgba(199, 122, 156, 0.4));
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.tag {
+  background-color: #8b9dfa;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tag.active-tag {
+  background-color: #9E5072;
+}
+
+.chat-btn {
+  background: linear-gradient(90deg, #818cf8, #a78bfa);
+  color: white;
+  border: none;
+  padding: 16px 100px;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
+}
