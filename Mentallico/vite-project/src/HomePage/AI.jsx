@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AI.css";
 import robotIcon from "../assets/Robot.png";
 import personIcon from "../assets/Person.png";
-import sendIcon from "../assets/Send.png";
+import sendIcon from "../assets/send.png";
 import ellipse16 from "../assets/Ellipse 16.png";
 
 const AI = () => {

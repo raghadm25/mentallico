@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import whereToStartImg from '../assets/WhereToStart.png';
-import bodyKeepsScoreImg from '../assets/TheBodyKeepsTheScore.png';
+import bodyKeepsScoreImg from '../assets/TheBodyKeepstheScore.png';
 import maybeTalkImg from '../assets/MaybeYouShouldTalk.png';
 import psychologyPodcastImg from '../assets/ThePsychologyPodcast.png';
 import mentalIllnessImg from '../assets/MentalIllnessHour.png';

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom"; 
-import footerImage from "../assets/FooterImg.png";
+import footerImage from "../assets/Footerimg.png";
 import facebookIcon from "../assets/facebook.png";
 import instagramIcon from "../assets/instagram.png";
 import xIcon from "../assets/X.png";
