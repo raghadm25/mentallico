@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Festive&display=swap");
+
+/* ===== Section ===== */
+.our-story-section {
+  position: relative;
+  width: 100%;
+  padding: 72px 24px;
+  overflow: hidden;
+  padding: 24px 24px 72px;
+}
+
+/* ===== Container ===== */
+.our-story-container {
+  max-width: 1245px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 47px;
+}
+
+.story-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.189;
+  letter-spacing: -2.4px;
+  color: #1a2e12;
+}
+
+/* ===== Content ===== */
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story-paragraph {
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.189;
+  letter-spacing: -0.6px;
+  color: #1a2e12;
+}
+
+.fancy-letter {
+  font-family: "Festive", cursive;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.189;
+  letter-spacing: -0.8px;
+  color: #1a2e12;
+  margin-right: 4px;
+}
+
+.story-link {
+  color: #7f89e9;
+  font-weight: 600;
+}
+
+/* ===== Blur Ellipse ===== */
+.ellipse-blur {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+/* Ellipse 18 - Secondary (بنفسجي) عالشمال ناحية Our Story */
+.ellipse-18 {
+  width: 527px;
+  height: 527px;
+  background: #A87CC7; /* Secondary */
+  filter: blur(300px);
+  bottom: -200px;
+  left: -250px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .our-story-section {
+    padding: 56px 16px;
+  }
+
+  .story-title {
+    font-size: 24px;
+  }
+
+  .story-paragraph {
+    font-size: 15px;
+  }
+  
+  .ellipse-18 {
+    width: 350px;
+    height: 350px;
+    filter: blur(200px);
+  }
+}

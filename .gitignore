@@ -1,0 +1,18 @@
+db.sqlite3
+.env
+.claude/
+
+# Node (covers node_modules anywhere in the tree, nested or not)
+node_modules/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Django runtime artifacts — regenerated on deploy (collectstatic) or by users (uploads)
+staticfiles/
+media/
+
+# Local tooling
+mkcert.exe

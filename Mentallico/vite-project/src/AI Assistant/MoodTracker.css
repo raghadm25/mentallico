@@ -1,0 +1,153 @@
+.outer-bg {
+  background-color: #F0F0F0;
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.main-wrapper {
+  display: flex;
+  width: 772px;
+  max-width: 100%;
+  height: 479px;
+  padding: 74px 91px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  background: #F7F7F7;
+  box-shadow: 0px 15px 50px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  gap: 29px;
+}
+
+.title {
+  color: #1A2E12;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.brains-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.brain-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  width: 102px;
+  height: 82px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.brain-item img {
+  width: 100%;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+
+.brain-item.selected {
+  transform: scale(1.2) translateY(-10px);
+
+  filter: drop-shadow(0 5px 15px rgba(199, 122, 156, 0.4));
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.tag {
+  background-color: #7F89E9;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tag.active-tag {
+  background-color: #9E5072;
+}
+
+.chat-btn {
+  background: linear-gradient(90deg, #7F89E9, #A87CC7);
+  color: white;
+  border: none;
+  min-height: 44px;
+  padding: 16px 100px;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(127, 137, 233, 0.4);
+}
+
+/* ── Mobile: the card was a hard-coded 772x479px box with a 5x102px-wide
+   icon row (590px+ minimum) — guaranteed horizontal overflow on any phone.
+   Let the card shrink, stack its height naturally, and scale the icons
+   and button down to fit. */
+@media (max-width: 860px) {
+  .main-wrapper {
+    height: auto;
+    padding: 48px 6%;
+  }
+}
+
+@media (max-width: 480px) {
+  .outer-bg {
+    padding: 100px 12px 40px;
+  }
+
+  .main-wrapper {
+    padding: 32px 20px;
+    gap: 20px;
+    border-radius: 28px;
+  }
+
+  .title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .brains-row {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .brain-item {
+    width: 56px;
+    height: 45px;
+  }
+
+  .tags-container {
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .chat-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+}

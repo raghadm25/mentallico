@@ -1,0 +1,274 @@
+/* ── Backdrop ──────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* ── Modal box ─────────────────────────────────────────────── */
+.modal-box {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  position: relative;
+  animation: slideUp 0.22s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.modal-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8b7fd4;
+}
+
+.modal-doctor-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 2px;
+}
+
+.modal-doctor-title {
+  font-size: 0.82rem;
+  color: #7a7a7a;
+  margin: 0;
+}
+
+.modal-x {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.modal-x:hover { background: #f0f0f0; color: #333; }
+
+/* ── Form groups ───────────────────────────────────────────── */
+.modal-form { display: flex; flex-direction: column; gap: 18px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group input[type="date"],
+.form-group textarea {
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 14px;
+  min-height: 44px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.18s;
+  font-family: inherit;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  min-height: 80px;
+}
+.form-group input[type="date"]:focus,
+.form-group textarea:focus { border-color: #8b7fd4; }
+
+.input-error { border-color: #e74c3c !important; }
+.field-error { font-size: 0.78rem; color: #e74c3c; }
+.optional { font-weight: 400; color: #aaa; font-size: 0.8rem; }
+
+/* ── Time slots ────────────────────────────────────────────── */
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.time-slot {
+  min-height: 44px;
+  padding: 7px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 20px;
+  background: #fafafa;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: #444;
+}
+.time-slot:hover { border-color: #8b7fd4; color: #8b7fd4; }
+.time-slot.selected {
+  background: #8b7fd4;
+  border-color: #8b7fd4;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Session type ──────────────────────────────────────────── */
+.session-types { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.type-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #555;
+  transition: all 0.15s;
+  box-sizing: border-box;
+}
+.type-option input[type="radio"] { accent-color: #8b7fd4; }
+.type-option.selected {
+  border-color: #8b7fd4;
+  background: #f3f1ff;
+  color: #5c4db8;
+  font-weight: 600;
+}
+
+/* ── Price summary ─────────────────────────────────────────── */
+.price-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: #f8f7ff;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+.price { font-weight: 700; color: #5c4db8; font-size: 1rem; }
+
+/* ── Confirm button ────────────────────────────────────────── */
+.confirm-btn {
+  background: linear-gradient(135deg, #8b7fd4, #c77acc);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.confirm-btn:hover { opacity: 0.9; }
+
+/* ── Confirmation screen ───────────────────────────────────── */
+.modal-box.confirmation {
+  text-align: center;
+  padding: 40px 28px;
+}
+.confirmation-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #8b7fd4, #c77acc);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 18px;
+}
+.confirmation h2 { font-size: 1.4rem; color: #2d2d2d; margin-bottom: 10px; }
+.confirmation p  { color: #666; font-size: 0.9rem; line-height: 1.6; }
+.confirmation-datetime {
+  font-size: 1rem;
+  color: #5c4db8;
+  font-weight: 600;
+  margin: 12px 0;
+}
+.confirmation-note { font-size: 0.8rem; color: #aaa; }
+.modal-close-btn {
+  margin-top: 20px;
+  padding: 12px 36px;
+  min-height: 44px;
+  background: linear-gradient(135deg, #8b7fd4, #c77acc);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ── Mobile: let the modal use nearly the full viewport ─────── */
+@media (max-width: 480px) {
+  .modal-backdrop {
+    padding: 8px;
+  }
+
+  .modal-box {
+    padding: 20px 18px;
+    max-height: 94vh;
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .modal-avatar {
+    width: 46px;
+    height: 46px;
+  }
+
+  .modal-doctor-name {
+    font-size: 0.95rem;
+  }
+
+  .time-slots,
+  .session-types {
+    gap: 10px;
+  }
+
+  .time-slot,
+  .type-option {
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+    text-align: center;
+  }
+
+  .modal-box.confirmation {
+    padding: 32px 20px;
+  }
+}

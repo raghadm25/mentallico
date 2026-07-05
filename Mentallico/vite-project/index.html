@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="style.css">
+    <link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Festive&display=swap" rel="stylesheet"
+  rel="stylesheet"
+/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentallico</title>
+
+    <!-- Google Identity Services — used by the Sign Up / Log In Google buttons -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Facebook SDK — used by the Sign Up / Log In Facebook buttons.
+         Loaded the same way as Google above: a static script tag, with its
+         own init callback, instead of being injected on demand. Vite
+         substitutes %VITE_FACEBOOK_APP_ID% from .env at build/dev time —
+         if it's blank, FB.init() runs with an empty appId and every FB.login()
+         call fails immediately, which useSocialAuth.js already handles. -->
+    <script>
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: '%VITE_FACEBOOK_APP_ID%',
+          cookie: true,
+          xfbml: false,
+          version: 'v19.0',
+        });
+      };
+    </script>
+    <script src="https://connect.facebook.net/en_US/sdk.js" async defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

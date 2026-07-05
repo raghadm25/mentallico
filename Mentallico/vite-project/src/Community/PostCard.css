@@ -1,0 +1,229 @@
+.post-container {
+    width: 95%;
+    max-width: 1244px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-main-card {
+    width: 100%;
+    padding: clamp(15px, 3vw, 30px) clamp(20px, 5vw, 60px);
+    box-sizing: border-box;
+    border-radius: 15px 15px 0 0;
+    border: 3px solid #D2D5DE;
+    background: #ffffff;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.post-delete-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    line-height: 0;
+    color: #595959;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.post-delete-btn:hover {
+    color: #c0392b;
+    background: #c0392b1a;
+}
+
+.post-delete-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: clamp(45px, 6vw, 60px);
+    height: clamp(45px, 6vw, 60px);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 600;
+    margin: 0;
+}
+
+.post-content {
+    width: 100%;
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.post-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 16px;
+}
+
+.post-actions-bar {
+    width: 100%;
+    min-height: 72px;
+    border-radius: 0 0 15px 15px;
+    background: #D2D5DE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid #D2D5DE;
+    border-top: none;
+    box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+    padding: 5px 0;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(5px, 1.5vw, 12px);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #292929;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.8vw, 20px);
+    font-weight: 500;
+    flex: 1;
+    min-height: 44px;
+    transition: opacity 0.2s;
+}
+
+.action-icon {
+    width: clamp(24px, 4vw, 40px);
+    height: clamp(24px, 4vw, 40px);
+    object-fit: contain;
+}
+
+.divider {
+    width: 2px;
+    height: 40px;
+    background: #B0B3BD;
+}
+
+/* للموبايل الصغير جداً */
+@media (max-width: 480px) {
+    .post-actions-bar {
+        min-height: 60px;
+    }
+    .divider {
+        height: 25px;
+    }
+
+    /* "Save to collection" is long enough to crowd a 3-across row at this
+       width — stack icon above label instead of cramming them side by side. */
+    .action-btn {
+        flex-direction: column;
+        gap: 4px;
+        font-size: 11px;
+        padding: 6px 2px;
+    }
+}
+
+.action-btn.active {
+    color: #7F89E9;
+    font-weight: 700;
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.comments-section {
+    width: 100%;
+    background: #ffffff;
+    border: 3px solid #D2D5DE;
+    border-top: none;
+    padding: clamp(12px, 2vw, 20px) clamp(20px, 5vw, 60px);
+    box-sizing: border-box;
+}
+
+.comments-loading,
+.comments-empty {
+    color: #595959;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.comment-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #292929;
+}
+
+.comment-author {
+    font-weight: 600;
+}
+
+.comment-form {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 2px solid #D2D5DE;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.comment-submit-btn {
+    min-height: 44px;
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #7F89E9;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.comment-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

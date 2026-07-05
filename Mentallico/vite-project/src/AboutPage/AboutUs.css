@@ -1,0 +1,59 @@
+:root {
+  --base-color: #F0F0F0;
+  --color-2: #1A2E12;
+  --primary-color: #6153BD;
+  --ellipse-green: #658852;
+  --ellipse-primary: #7F89E9;
+  --ellipse-secondary: #A87CC7;
+}
+
+.about-page {
+  background-color: var(--base-color);
+  width: 100%;
+  padding-top: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-header {
+  text-align: center;
+  padding-bottom: 40px;
+  position: relative;
+  z-index: 2; 
+}
+
+.about-header h1 {
+  color: var(--color-2);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(36px, 8vw, 75px);
+  font-weight: 600;
+  letter-spacing: -3.75px;
+  margin: 0;
+  padding: 0 20px;
+}
+
+.ellipse {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1; 
+}
+
+/* Ellipse 20 - أخضر فوق عالشمال */
+.ellipse-20 {
+  width: 252px;
+  height: 252px;
+  background: var(--ellipse-green);
+  filter: blur(150px);
+  top: -100px;
+  left: -100px;
+}
+
+/* Ellipse 22 - Primary أزرق */
+.ellipse-22 {
+  width: 527px;
+  height: 527px;
+  background: var(--ellipse-primary);
+  filter: blur(300px);
+  top: 100px;
+  right: -200px;
+}

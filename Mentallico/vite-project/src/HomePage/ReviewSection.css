@@ -1,0 +1,171 @@
+.review-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; 
+  z-index: 1; 
+  margin-bottom: 50px;
+}
+
+.ellipse-15, .ellipse-12 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1; 
+  pointer-events: none; 
+}
+
+.ellipse-15 {
+  left: -200px;
+  top: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(127, 137, 233, 0.25) 0%, transparent 70%);
+}
+
+.ellipse-12 {
+  right: -200px;
+  top: 20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(101, 136, 82, 0.2) 0%, transparent 70%);
+}
+
+.review-section h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #1A2E12;
+  margin-bottom: 60px;
+  text-align: center;
+  position: relative;
+  z-index: 2; 
+}
+
+.reviews-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  position: relative;
+  z-index: 2; 
+}
+
+.arrow-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.arrow-btn:hover { transform: scale(1.1); }
+.arrow-btn img { width: 20px; height: auto; }
+
+.cards-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.review-card {
+  display: flex;
+  width: 364px;
+  min-height: 283px;
+  padding: 45px 35px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  border-radius: 30px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 4px 0 rgba(26, 46, 18, 0.18), 
+              0 4px 11.6px 0 rgba(127, 137, 233, 0.43), 
+              -4px 0 13px 0 rgba(168, 124, 199, 0.22) inset, 
+              2px 0 7.7px 0 rgba(127, 137, 233, 0.23) inset;
+  position: relative;
+  z-index: 2;
+  background: #F0F0F0;
+  overflow: hidden;
+}
+
+.review-card:hover { transform: translateY(-5px); }
+
+.primary-card { background: #7F89E9; }
+
+.stars-container,
+.review-text,
+.review-footer {
+  position: relative;
+  z-index: 2; 
+}
+
+.decoration-quote,
+.decoration-wave-top,
+.decoration-wave-bottom {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0; 
+}
+
+.decoration-quote {
+  top: 25px;
+  right: 30px;
+  width: 32px;
+  height: auto;
+}
+
+.decoration-wave-top {
+  top: 70px;
+  left: 0;
+  width: 80px;
+  height: auto;
+  opacity: 0.6;
+}
+
+.decoration-wave-bottom {
+  bottom: 0;
+  right: 0;
+  width: 120px;
+  height: auto;
+  opacity: 0.6;
+}
+
+.review-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.review-author {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: auto;
+}
+
+.review-card.base-card .review-text,
+.review-card.base-card .review-author { color: #7F89E9; }
+
+.review-card.primary-card .review-text,
+.review-card.primary-card .review-author { color: #FFFFFF; }
+
+.stars-container { display: flex; gap: 5px; margin-bottom: 10px; }
+.star-icon { width: 18px; height: 18px; }
+
+@media (max-width: 1200px) {
+  .cards-container { flex-direction: column; }
+  .arrow-btn { display: none; }
+  .review-card { width: 100%; max-width: 350px; }
+}

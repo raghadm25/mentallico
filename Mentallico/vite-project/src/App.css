@@ -1,0 +1,55 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; 
+  background: #F0F0F0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.home-page {
+  position: relative;
+  width: 100%; 
+  min-height: 100vh; 
+  background: #F0F0F0;
+  overflow-x: hidden; 
+}
+
+.rectangle-7 {
+  position: absolute;
+  width: 50%; 
+  height: 100vh; 
+  right: 0px;
+  top: 0px;
+  background: linear-gradient(89.94deg, #7F89E9 5.97%, #A87CC7 59.39%, #658852 111.79%);
+  z-index: 0; 
+  border-bottom-left-radius: 50% 100%;
+}
+
+.ellipse-13, .ellipse-12, .ellipse-17, .ellipse-16, .ellipse-14, .ellipse-15 {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none; 
+}
+
+.ellipse-13 {
+  width: 527px;
+  height: 527px;
+  left: -200px;
+  top: 20%;
+  background: #A87CC7;
+  filter: blur(300px);
+}
+
+.ellipse-12 { width: 527px; height: 527px; right: -100px; top: 60%; background: #658852; filter: blur(300px); }
+.ellipse-17 { width: 252px; height: 252px; left: -50px; top: 30%; background: #658852; filter: blur(150px); }
+.ellipse-16 { width: 527px; height: 527px; right: 0; bottom: 0; background: #A87CC7; filter: blur(300px); }
+.ellipse-14 { width: 527px; height: 527px; right: 10%; top: 40%; background: #7F89E9; filter: blur(300px); }
+.ellipse-15 { width: 527px; height: 527px; left: -10%; bottom: 20%; background: #7F89E9; filter: blur(300px); }
+

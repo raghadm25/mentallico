@@ -1,0 +1,50 @@
+:root {
+  --Primary: #7F89E9;
+  --Secondary: #A87CC7;
+  --Accent-Green: #658852;
+  --Color-2: #1A2E12;
+  --Base: #F0F0F0;
+  --light-gray: #D2D5DE;
+  --brand-gradient: linear-gradient(90deg, #7F89E9 5.97%, #A87CC7 59.39%, #658852 111.79%);
+}
+
+.static-page {
+  font-family: 'Poppins', sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+  color: var(--Color-2);
+}
+
+.static-page h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.static-page .static-subtitle {
+  color: #595959;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.static-page section {
+  margin-bottom: 32px;
+}
+
+.static-page h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--Color-2);
+}
+
+.static-page p {
+  color: #444;
+  line-height: 1.7;
+  font-size: 15px;
+}

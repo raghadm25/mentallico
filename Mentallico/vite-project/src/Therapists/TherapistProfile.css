@@ -1,0 +1,274 @@
+.profile-page {
+    background-color: #fdfdff;
+    min-height: 100vh;
+}
+
+.profile-header-bg {
+    height: 250px;
+    background: linear-gradient(90deg, #7F89E9 5.97%, #A87CC7 59.39%, #658852 111.79%);
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 8%;
+}
+
+.avatar-wrapper {
+    position: absolute;
+    bottom: -60px;
+    left: 8%;
+}
+
+.main-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 6px solid white;
+    object-fit: cover;
+}
+
+.profile-content {
+    margin-top: 80px;
+    text-align: left;
+    padding: 0 8%;
+}
+
+.doc-name { font-size: 2.2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; }
+.doc-title { color: #595959; font-size: 1.1rem; margin-bottom: 6px; }
+.doc-location { color: #595959; font-size: 0.95rem; }
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.book-btn-main {
+    background: #7F89E9;
+    color: white;
+    min-height: 44px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.message-btn {
+    background: #DDE1E7;
+    color: #595959;
+    min-height: 44px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.quote {
+    font-style: italic;
+    color: #595959;
+    max-width: 700px;
+    margin: 24px 0;
+    line-height: 1.6;
+}
+
+.divider { border: 0.5px solid #eee; margin: 20px 0; }
+
+.about-section { text-align: left; }
+.about-section h3 { margin-bottom: 15px; color: #1a1a1a; font-size: 1.3rem; font-weight: 700; }
+.about-section p { color: #444; line-height: 1.7; }
+
+.recommendations-section h3,
+.similar-section h3 {
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.recommendation-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rec-nav {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.recommendation-cards {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}
+
+.rec-card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    font-size: 0.9rem;
+    color: #5c4db8;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rec-card p {
+    margin: 0;
+}
+
+.rec-stars {
+    color: #7F89E9;
+    letter-spacing: 2px;
+}
+
+.rec-author {
+    color: #888;
+    font-size: 0.82rem;
+}
+
+.rec-card.purple {
+    background: #7F89E9;
+    color: white;
+}
+
+.rec-card.purple .rec-stars {
+    color: white;
+}
+
+.rec-card.purple .rec-author {
+    color: #eee;
+}
+
+.similar-section {
+    padding-bottom: 40px;
+}
+
+.similar-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.similar-card {
+    flex: 1;
+    background: #7F89E94D;
+    border: 1px solid #7F89E9;
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.similar-card .avatar-container {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    border: 3px solid #8B8FF9;
+    overflow: hidden;
+}
+
+.similar-card .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.similar-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1A2E12;
+    margin-bottom: 6px;
+}
+
+.similar-specialty {
+    font-size: 0.82rem;
+    color: #595959;
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+
+.similar-card .card-footer-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.similar-card .book-btn,
+.similar-card .profile-btn {
+    flex: 1;
+    min-height: 44px;
+    padding: 8px 5px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+}
+
+.similar-card .book-btn { background: #7F89E9; color: white; }
+.similar-card .profile-btn { background: white; color: #7F89E9; border: 1px solid #7F89E9; }
+
+@media (max-width: 768px) {
+    .recommendation-cards,
+    .similar-cards {
+        flex-direction: column;
+    }
+    .rec-nav {
+        display: none;
+    }
+
+    .profile-header-bg {
+        height: 180px;
+        padding-left: 6%;
+    }
+
+    .avatar-wrapper {
+        left: 6%;
+        bottom: -50px;
+    }
+
+    .main-avatar {
+        width: 130px;
+        height: 130px;
+        border-width: 4px;
+    }
+
+    .profile-content {
+        margin-top: 65px;
+        padding: 0 6%;
+    }
+
+    .doc-name {
+        font-size: 1.6rem;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+    }
+
+    .book-btn-main,
+    .message-btn {
+        flex: 1;
+        min-width: 140px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .book-btn-main,
+    .message-btn {
+        width: 100%;
+    }
+}

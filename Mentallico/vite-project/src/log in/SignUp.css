@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --Title-Color: #1A2E12;
+  --Primary: #7F89E9;
+  --Secondary: #A87CC7;
+  --Base: #F0F0F0;
+  --Background-Page: #f5f5f5;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+  background-color: var(--Background-Page);
+  font-family: 'Poppins', sans-serif;
+}
+
+.signup-card {
+  background: var(--Base);
+  width: 794px;
+  height: 1032px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding: 67px;
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+  row-gap: 18px;
+}
+
+/* Lets the <form>'s own children (labels/inputs/button) act as direct grid
+   items of .signup-card, flowing into the 12 rows in DOM order, instead of
+   the form itself occupying a single row. */
+.signup-form {
+  display: contents;
+}
+
+.signup-error {
+  position: absolute;
+  top: 20px;
+  left: 67px;
+  right: 67px;
+  color: #c0392b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.signup-title {
+  color: var(--Title-Color);
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -2.4px;
+  align-self: end;
+  justify-self: start;
+  margin: 0;
+}
+
+.input-label {
+  background: linear-gradient(90deg, var(--Primary), var(--Secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: 32px;
+  font-weight: 500;
+  align-self: end;
+  justify-self: start;
+}
+
+.input-group {
+  align-self: stretch;
+  justify-self: stretch;
+  display: flex;
+}
+
+.custom-input {
+  width: 100%;
+  height: 69px;
+  border-radius: 20px;
+  border: 1px solid var(--Primary);
+  padding: 0 42px;
+  background: transparent;
+  font-size: 20px;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  color: var(--Title-Color);
+}
+
+.custom-input::placeholder {
+  color: var(--Primary);
+  opacity: 0.7;
+}
+
+.custom-input:focus {
+  border-color: var(--Secondary);
+}
+
+.grid-spacer {
+  align-self: stretch;
+}
+
+.create-account-btn {
+  background: linear-gradient(90deg, var(--Primary) 0%, var(--Secondary) 100%);
+  height: 76px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  align-self: end;
+  justify-self: stretch;
+}
+
+.create-account-btn:hover {
+  opacity: 0.9;
+}
+
+.create-account-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 62px;
+  align-self: center;
+  justify-self: center;
+}
+
+.social-icon-btn {
+  background: none;
+  border: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  cursor: pointer;
+  color: var(--Primary);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.15s;
+}
+
+.social-icon-btn:hover {
+  color: var(--Secondary);
+  transform: translateY(-2px);
+}
+
+.signup-switch-text {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+.signup-switch-text a {
+  color: var(--Primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Below this, the fixed 794x1032 Figma card no longer fits comfortably —
+   switch from 12 equal-fraction rows (correct for the exact desktop mock)
+   to content-sized rows or reflowed content sizing so nothing overflows,
+   collapses, or overlaps on a phone-sized viewport. */
+@media (max-width: 860px) {
+  .signup-container {
+    padding: 24px 16px;
+  }
+
+  .signup-card {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    padding: 40px 28px;
+    grid-template-rows: auto;
+    row-gap: 14px;
+  }
+
+  .signup-error {
+    left: 28px;
+    right: 28px;
+  }
+
+  .signup-title {
+    font-size: 34px;
+  }
+
+  .input-label {
+    font-size: 22px;
+  }
+
+  .custom-input {
+    height: 54px;
+    padding: 0 24px;
+    font-size: 16px;
+  }
+
+  .create-account-btn {
+    height: 58px;
+    font-size: 22px;
+  }
+
+  .grid-spacer {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .signup-card {
+    padding: 32px 18px;
+    border-radius: 20px;
+  }
+
+  .signup-title {
+    font-size: 28px;
+  }
+
+  .input-label {
+    font-size: 18px;
+  }
+}

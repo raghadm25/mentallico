@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.about-hero-section {
+  position: relative;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+/* ===== Quote Rectangle ===== */
+.quote-rectangle {
+  width: 100%;
+  background-color: #1a3c1e;
+  padding: 96px 24px 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Content ===== */
+.quote-container {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.quote-text {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.8;
+  z-index: 2;
+  position: relative;
+}
+
+.quote-text .highlight {
+  color: #a5b4fc;
+  font-weight: 500;
+}
+
+/* ===== Quotation Marks ===== */
+.quote-mark {
+  position: absolute;
+  font-size: 160px;
+  color: rgba(255, 255, 255, 0.08);
+  font-family: serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.quote-mark.left {
+  top: -80px;
+  left: -40px;
+}
+
+.quote-mark.right {
+  bottom: -120px;
+  right: -40px;
+}
+
+/* ===== Blur Ellipses - UPDATED ===== */
+.ellipse-blur {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Ellipse 20 - أخضر فوق على الشمال */
+.ellipse-20 {
+  width: 252px;
+  height: 252px;
+  background: #658852; /* Color */
+  filter: blur(150px);
+  top: -100px;
+  left: -100px;
+}
+
+/* Ellipse 22 - Primary أزرق على اليمين */
+.ellipse-22 {
+  width: 527px;
+  height: 527px;
+  background: #7F89E9; /* Primary */
+  filter: blur(300px);
+  top: 80px;
+  right: -200px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .quote-rectangle {
+    padding: 64px 16px;
+  }
+
+  .quote-text {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .quote-mark {
+    font-size: 96px;
+  }
+
+  .quote-mark.left {
+    top: -40px;
+    left: -20px;
+  }
+
+  .quote-mark.right {
+    bottom: -60px;
+    right: -20px;
+  }
+  
+  .ellipse-20 {
+    width: 150px;
+    height: 150px;
+    filter: blur(100px);
+  }
+  
+  .ellipse-22 {
+    width: 300px;
+    height: 300px;
+    filter: blur(200px);
+  }
+}

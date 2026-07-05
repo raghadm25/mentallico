@@ -1,0 +1,67 @@
+.settings-card {
+  background: #ffffff;
+  border: 1px solid var(--light-gray);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+}
+
+.settings-form input {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.settings-save-btn {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: none;
+  background: var(--Primary);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.settings-save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.settings-error {
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.settings-success {
+  color: var(--Accent-Green);
+  font-size: 14px;
+}
+
+.settings-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.settings-toggle-row em {
+  color: #999;
+  font-style: normal;
+  font-size: 12px;
+}

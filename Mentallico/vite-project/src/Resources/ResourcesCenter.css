@@ -1,0 +1,269 @@
+/* التنسيق العام والترحيب */
+.resources-page-wrapper {
+  padding: 100px 8% 50px;
+  background: linear-gradient(180deg, #FDFCFB 0%, #E2D1F9 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.res-header h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 700;
+  color: #1A2E12;
+  margin-bottom: 50px;
+}
+
+.brand-color { color: #7F89E9; }
+
+/* قسم What we offer */
+.offers-section { margin-bottom: 100px; }
+.section-title { font-size: 28px; margin-bottom: 30px; color: #1A2E12; }
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.offer-card {
+  padding: 40px 30px;
+  border-radius: 30px;
+  text-align: center;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.purple-bg { background-color: #B298D6; color: rgb(21, 18, 18); }
+.grey-bg { background-color: #DDE1E7; color: #7F89E9; }
+
+/* السلايدر والأسهم */
+.res-section { margin-bottom: 80px; position: relative; }
+.res-section-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; color: #000000;}
+.slider-controls { display: flex; gap: 15px; }
+.resources-page-wrapper .arrow-btn {
+  width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd;
+  background: rgb(25, 23, 23); cursor: pointer; transition: 0.3s; font-size: 18px;
+}
+.resources-page-wrapper .arrow-btn:hover { background: #7F89E9; color: rgb(6, 4, 4); border-color: #7F89E9; }
+
+/* القائمة الأفقية */
+.horizontal-list {
+  display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth;
+  padding-bottom: 20px; scrollbar-width: none;
+}
+.horizontal-list::-webkit-scrollbar { display: none; }
+
+.card-item {
+  flex: 0 0 calc(33.333% - 20px); /* يظهر 3 كروت بالظبط في المساحة */
+  text-decoration: none; color: inherit; background: white; 
+  padding: 15px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Book covers vary in aspect ratio — let each container hug its own image
+   instead of forcing every cover into the same cropped box. */
+.img-container { position: relative; width: 100%; border-radius: 20px; overflow: hidden; }
+.img-container img { display: block; width: 100%; height: auto; }
+.square-card .img-container { aspect-ratio: 1 / 1; }
+.square-card .img-container img { height: 100%; object-fit: cover; }
+
+/* TED thumbnails are always 16:9 video stills — a consistent crop looks
+   right here, unlike book covers which genuinely vary. */
+.wide-card .img-container { aspect-ratio: 16 / 9; }
+.wide-card .img-container img { height: 100%; object-fit: cover; }
+.wide-card .card-info h4 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #1A2E12;
+}
+
+.see-more-link {
+  display: block;
+  width: fit-content;
+  margin: 12px 0 0 auto;
+  color: #7F89E9;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.see-more-link:hover { color: #6470d8; }
+
+.heart-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: #D2D5DE;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.15s;
+}
+.heart-btn:hover { transform: scale(1.08); }
+.heart-btn.saved { color: #e0457b; }
+.heart-btn:disabled { opacity: 0.6; cursor: default; }
+
+/* قسم العادات تحت */
+.habits-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 86px;
+  width: 100%;
+  max-width: 1308px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+.habits-section h3 { font-size: 28px; color: #000000; }
+
+.habits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; }
+.habit-box {
+  position: relative;
+  padding: 40px 20px; border-radius: 25px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 15px;
+  border: 3px solid transparent; font: inherit; cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.habit-box:hover:not(:disabled) { transform: translateY(-4px); }
+.habit-box:disabled { opacity: 0.7; cursor: default; }
+.habit-box.completed {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+.habit-box.completed .habit-svg-holder { background: rgba(255, 255, 255, 0.55); }
+
+.habit-svg-holder {
+  width: 110px;
+  height: 110px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.habit-svg-holder svg { width: 70%; height: 70%; }
+
+.habit-label { font-size: 17px; font-weight: 600; color: #1A2E12; }
+.habit-label-purple { color: #471C66; }
+.habit-label-blue { color: #1C4466; }
+
+.habit-check-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #658852;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Tile backgrounds + icon-holder tints straight from the Figma palette. */
+.h-green { background: #658852; }
+.h-green .habit-svg-holder { background: rgba(167, 205, 146, 0.76); }
+
+.h-purple { background: #A87CC7; }
+.h-purple .habit-svg-holder { background: #D2BAE2; }
+
+.h-blue { background: #5A7C95; }
+.h-blue .habit-svg-holder { background: rgba(146, 189, 205, 0.76); }
+
+.h-olive { background: #858852; }
+.h-olive .habit-svg-holder { background: rgba(198, 205, 146, 0.76); }
+
+/* ── Responsive ──────────────────────────────────────────────────
+   .offers-grid and .habits-grid had zero breakpoints. .habits-grid in
+   particular used a *fixed* 110px .habit-svg-holder inside repeat(4,1fr)
+   columns — grid tracks default to a min size of "auto", so those four
+   fixed-size icon boxes forced the grid itself past the viewport width
+   on any phone, causing real page-level horizontal overflow. */
+@media (max-width: 1024px) {
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .habits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-item {
+    flex: 0 0 calc(50% - 13px);
+  }
+}
+
+@media (max-width: 768px) {
+  .resources-page-wrapper {
+    padding: 100px 5% 40px;
+  }
+
+  .res-header h1 {
+    margin-bottom: 30px;
+  }
+
+  .offers-section {
+    margin-bottom: 60px;
+  }
+
+  .offer-card {
+    min-height: 220px;
+    padding: 30px 20px;
+  }
+
+  .res-section {
+    margin-bottom: 50px;
+  }
+
+  .card-item {
+    flex: 0 0 72%;
+  }
+}
+
+@media (max-width: 480px) {
+  .offers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .habits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .habits-section {
+    gap: 40px;
+  }
+
+  .habit-box {
+    padding: 24px 12px;
+    gap: 10px;
+  }
+
+  .habit-svg-holder {
+    width: 70px;
+    height: 70px;
+  }
+
+  .habit-label {
+    font-size: 14px;
+  }
+
+  .card-item {
+    flex: 0 0 85%;
+  }
+
+  .resources-page-wrapper .arrow-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

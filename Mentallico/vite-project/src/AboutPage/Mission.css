@@ -1,0 +1,139 @@
+:root {
+  --heading-green: #1B3C24;
+  --text-grey: #2C2C2C;
+  --ellipse-green: #658852;
+}
+
+.mission-section {
+  position: relative;
+  background: linear-gradient(90deg, #F3F3FA 0%, #FFFFFF 50%, #F1F6F2 100%);
+  width: 100%;
+  padding: 100px 0; 
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Ellipse 19 - أخضر عالشمال ناحية Our Mission */
+.blob-right {
+  position: absolute;
+  top: -100px;
+  left: -200px;
+  width: 527px;
+  height: 527px;
+  background: var(--ellipse-green);
+  border-radius: 50%;
+  filter: blur(300px);
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Ellipse 23 - Primary (أزرق) عالشمال تحت التكست وجنب الرسمة */
+.blob-left {
+  position: absolute;
+  bottom: -150px;
+  left: -100px;
+  width: 527px;
+  height: 527px;
+  background: #7F89E9; /* Primary */
+  border-radius: 50%;
+  filter: blur(300px);
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mission-container {
+  position: relative;
+  z-index: 1; 
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.mission-content {
+  flex: 1;
+  max-width: 520px;
+  padding-right: 20px;
+}
+
+.mission-title {
+  color: #1a2e12;
+  font-family: 'Poppins', sans-serif;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.189;
+  margin-bottom: 30px;
+  letter-spacing: -2.4px;
+}
+
+.mission-text {
+  color: #1a2e12;
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+  line-height: 1.189;
+  font-weight: 400;
+  letter-spacing: -0.6px;
+}
+
+.mission-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; 
+  position: relative;
+}
+
+.mission-img {
+  width: 100%;
+  max-width: 550px; 
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 992px) {
+  .mission-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .mission-content {
+    margin-right: 0;
+    margin-bottom: 50px;
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .mission-title {
+    font-size: 36px;
+  }
+
+  .mission-text {
+    font-size: 18px;
+  }
+
+  .mission-image-wrapper {
+    justify-content: center;
+  }
+
+  .blob-right {
+    width: 350px;
+    height: 350px;
+    filter: blur(200px);
+    top: -50px;
+    left: -100px;
+  }
+
+  .blob-left {
+    width: 350px;
+    height: 350px;
+    filter: blur(200px);
+    bottom: -100px;
+  }
+}
