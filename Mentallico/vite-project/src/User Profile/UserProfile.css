@@ -376,13 +376,15 @@ body {
 /* صور المخ */
 .mood-group-img {
   width: 100%;
-  max-width: 140px;
+  max-width: 180px;
   height: auto;
   object-fit: contain;
-  transform: scale(1.3);
+  transform: scale(1.7);
+  transform-origin: center center;
 }
 
 .mood-icon-btn {
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
@@ -397,6 +399,36 @@ body {
 }
 
 .mood-icon-btn:hover { background: rgba(127, 137, 233, 0.15); }
+
+/* Custom tooltip, centered directly over the hovered icon — replaces the
+   native title="" tooltip, whose placement follows the cursor/OS rules
+   rather than staying centered on the element. */
+.mood-icon-btn[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  background: rgba(26, 46, 18, 0.92);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 20;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.mood-icon-btn[data-tooltip]:hover::after,
+.mood-icon-btn[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
 
 /* الإحصائيات في الأسفل */
 .inner-mood-insight {
@@ -427,6 +459,13 @@ body {
 
 .inactive-day-btn:hover { background: rgba(127, 137, 233, 0.15); }
 .inactive-day-btn.today { border: 2px solid var(--Primary); font-weight: 700; color: var(--Primary); }
+
+/* Future day, no mood yet — visible so the grid stays intact, but not loggable. */
+.inactive-day-btn:disabled {
+  color: #C7C7C7;
+  cursor: default;
+}
+.inactive-day-btn:disabled:hover { background: none; }
 
 /* Mood picker popover */
 .mood-picker-overlay {
@@ -479,6 +518,22 @@ body {
 }
 
 .mood-picker-option:hover { background: var(--Primary); color: #fff; }
+
+.mood-picker-delete {
+  display: block;
+  margin: 0 auto 12px;
+  min-height: 44px;
+  padding: 6px 20px;
+  border-radius: 20px;
+  border: 1px solid #C0392B;
+  background: none;
+  color: #C0392B;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.mood-picker-delete:hover { background: #C0392B; color: #fff; }
+.mood-picker-delete:disabled { opacity: 0.6; cursor: default; background: none; color: #C0392B; }
 
 .mood-picker-close {
   display: block;
@@ -576,6 +631,12 @@ body {
 .gratitude-bg { background: #858852; }
 .reading-bg { background: #C18DA3; }
 .breathing-bg { background: #527988; }
+.smoking-bg { background: #658852; }
+.meditation-bg { background: #A87CC7; }
+.workout-bg { background: #5A7C95; }
+.declutter-bg { background: #B5607D; }
+.sleep-bg { background: #8B4049; }
+.selftalk-bg { background: #A69F6B; }
 
 /* =============================================
    SVG PROGRESS RING STYLES
@@ -608,6 +669,15 @@ body {
 .breathing-bg .progress-ring-bg {
   stroke: rgba(146, 191, 205, 0.37);
 }
+/* Each ring tint must be visibly distinct from its tile's own solid
+   background — reusing the exact same color at low opacity produces
+   a ring that's effectively invisible against its own backdrop. */
+.smoking-bg .progress-ring-bg { stroke: rgba(167, 205, 146, 0.5); }
+.meditation-bg .progress-ring-bg { stroke: rgba(210, 186, 226, 0.6); }
+.workout-bg .progress-ring-bg { stroke: rgba(146, 189, 205, 0.5); }
+.declutter-bg .progress-ring-bg { stroke: rgba(224, 166, 184, 0.55); }
+.sleep-bg .progress-ring-bg { stroke: rgba(196, 140, 148, 0.55); }
+.selftalk-bg .progress-ring-bg { stroke: rgba(205, 201, 166, 0.55); }
 
 /* القوس (Progress Arc) */
 .progress-ring-progress {
@@ -637,6 +707,13 @@ body {
   stroke-dashoffset: 261;
 }
 
+.smoking-progress { stroke: rgba(167, 205, 146, 1); stroke-dasharray: 722; }
+.meditation-progress { stroke: rgba(210, 186, 226, 1); stroke-dasharray: 722; }
+.workout-progress { stroke: rgba(146, 189, 205, 1); stroke-dasharray: 722; }
+.declutter-progress { stroke: rgba(224, 166, 184, 1); stroke-dasharray: 722; }
+.sleep-progress { stroke: rgba(196, 140, 148, 1); stroke-dasharray: 722; }
+.selftalk-progress { stroke: rgba(205, 201, 166, 1); stroke-dasharray: 722; }
+
 /* الأيقونات في المنتصف */
 .habit-icon {
   width: 90px;
@@ -646,28 +723,16 @@ body {
   position: relative;
 }
 
+.habit-icon-svg {
+  color: #ffffff;
+}
+
 .breathing-icon-placeholder {
   z-index: 10;
   position: relative;
 }
 
 .habit-card.completed { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.5); }
-
-.habit-checkmark {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #ffffff;
-  color: var(--Accent-Green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  z-index: 11;
-}
 
 .breathing-icon-placeholder svg {
   width: 60px;
@@ -688,6 +753,408 @@ body {
 .gratitude-text { color: #2C2E12; }
 .reading-text { color: #9E5072; }
 .breathing-text { color: #527988; }
+.smoking-text { color: #658852; }
+.meditation-text { color: #A87CC7; }
+.workout-text { color: #5A7C95; }
+.declutter-text { color: #B5607D; }
+.sleep-text { color: #8B4049; }
+.selftalk-text { color: #A69F6B; }
+
+/* =============================================
+   ADD-HABIT TILE (dashed placeholder in the grid)
+   ============================================= */
+.add-habit-card {
+  background: #E5E5E5;
+  border: 2px dashed #B9B9B9;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.add-habit-card:hover {
+  background: #DCDCDC;
+  border-color: #9A9A9A;
+}
+
+.add-habit-plus {
+  font-size: 48px;
+  font-weight: 300;
+  color: #ffffff;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px dashed #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.add-habit-label {
+  color: #7A7A7A;
+}
+
+/* =============================================
+   HABIT MODALS (Add-a-Habit picker + detail/remove)
+   ============================================= */
+.habit-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 46, 18, 0.45);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.habit-modal {
+  background: #F0F0F0;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 28px 28px 0 0;
+  padding: 12px 28px 32px;
+  box-sizing: border-box;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: habit-modal-slide-up 0.25s ease;
+}
+
+@keyframes habit-modal-slide-up {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.habit-modal-handle {
+  width: 48px;
+  height: 5px;
+  border-radius: 3px;
+  background: #C7C7C7;
+  margin: 0 auto 18px;
+}
+
+/* ── Add-a-Habit picker ─────────────────────────────────────── */
+.add-habit-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.add-habit-modal-header h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A2E12;
+  margin: 0;
+}
+
+.habit-modal-close {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #1A2E12;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.habit-modal-close:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.add-habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-habit-empty {
+  text-align: center;
+  color: #7A7A7A;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px 0;
+}
+
+.add-habit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #E4E4E4;
+}
+
+.add-habit-row-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.add-habit-icon-badge {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.add-habit-icon-img {
+  width: 32px;
+  height: auto;
+}
+
+.add-habit-icon-svg {
+  width: 28px;
+  height: 28px;
+  color: #ffffff;
+}
+
+.add-habit-row-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1A2E12;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-habit-plus-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  border: 2px solid #1A2E12;
+  background: transparent;
+  color: #1A2E12;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.add-habit-plus-btn:hover:not(:disabled) {
+  background: #1A2E12;
+  color: #ffffff;
+}
+
+.add-habit-plus-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Habit detail / progress / remove ──────────────────────── */
+.habit-detail-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.habit-detail-tile {
+  width: 180px;
+  height: 180px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.habit-detail-tile .habit-icon {
+  width: 70px;
+}
+
+.habit-detail-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A2E12;
+  margin: 0 0 6px;
+}
+
+.habit-detail-percent {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #7A7A7A;
+  margin: 0 0 20px;
+}
+
+.habit-detail-progress-track {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 10px;
+  border-radius: 6px;
+  background: #E0E0E0;
+  margin-bottom: 28px;
+}
+
+/* An actual <input type="range"> sits on top of the decorative fill bar so
+   the whole track is directly draggable to any 0-100 value, rather than
+   only adjustable one click at a time via the +/- buttons below it. */
+.habit-detail-progress-slider {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  transform: translateY(-50%);
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.habit-detail-progress-slider::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 28px;
+}
+.habit-detail-progress-slider::-moz-range-track {
+  background: transparent;
+  height: 28px;
+}
+.habit-detail-progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1A2E12;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  margin-top: 0;
+  cursor: pointer;
+}
+.habit-detail-progress-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1A2E12;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.habit-detail-progress-fill {
+  height: 100%;
+  background: #1A2E12;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.habit-detail-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.habit-detail-step-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #E5E5E5;
+  color: #1A2E12;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.habit-detail-step-btn:hover:not(:disabled) {
+  background: #D3D3D3;
+}
+
+.habit-detail-step-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.habit-detail-percent-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 70px;
+}
+
+.habit-detail-percent-big {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1A2E12;
+}
+
+.habit-detail-progress-caption {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #7A7A7A;
+}
+
+.habit-detail-remove {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: none;
+  background: none;
+  color: #c0392b;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.habit-detail-remove:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.habit-detail-remove:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (max-width: 480px) {
+  .habit-modal {
+    padding: 12px 20px 28px;
+  }
+
+  .add-habit-row-name {
+    font-size: 15px;
+  }
+
+  .habit-detail-tile {
+    width: 140px;
+    height: 140px;
+  }
+
+  .habit-detail-tile .habit-icon {
+    width: 55px;
+  }
+}
 
 /* =============================================
    RESPONSIVE DESIGN
@@ -783,7 +1250,7 @@ body {
   }
 
   .mood-group-img {
-    transform: scale(1);
+    transform: scale(1.3);
   }
 
   .inner-section-title {

@@ -41,9 +41,9 @@
 .slider-controls { display: flex; gap: 15px; }
 .resources-page-wrapper .arrow-btn {
   width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd;
-  background: rgb(25, 23, 23); cursor: pointer; transition: 0.3s; font-size: 18px;
+  background: #7F89E9; cursor: pointer; transition: 0.3s; font-size: 18px;
 }
-.resources-page-wrapper .arrow-btn:hover { background: #7F89E9; color: rgb(6, 4, 4); border-color: #7F89E9; }
+.resources-page-wrapper .arrow-btn:hover { background: #b298d6; color: #1A2E12; border-color: #7F89E9; }
 
 /* القائمة الأفقية */
 .horizontal-list {
@@ -123,35 +123,6 @@
 .habits-section h3 { font-size: 28px; color: #000000; }
 
 .habits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; }
-.habit-box {
-  position: relative;
-  padding: 40px 20px; border-radius: 25px; text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 15px;
-  border: 3px solid transparent; font: inherit; cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.habit-box:hover:not(:disabled) { transform: translateY(-4px); }
-.habit-box:disabled { opacity: 0.7; cursor: default; }
-.habit-box.completed {
-  border-color: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
-}
-.habit-box.completed .habit-svg-holder { background: rgba(255, 255, 255, 0.55); }
-
-.habit-svg-holder {
-  width: 110px;
-  height: 110px;
-  border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-.habit-svg-holder svg { width: 70%; height: 70%; }
-
-.habit-label { font-size: 17px; font-weight: 600; color: #1A2E12; }
-.habit-label-purple { color: #471C66; }
-.habit-label-blue { color: #1C4466; }
 
 .habit-check-badge {
   position: absolute;
@@ -170,18 +141,30 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-/* Tile backgrounds + icon-holder tints straight from the Figma palette. */
-.h-green { background: #658852; }
-.h-green .habit-svg-holder { background: rgba(167, 205, 146, 0.76); }
+/* Pre-rendered tile art (background + icon + label baked into the image
+   itself) — the button is just a transparent, unstyled click target. */
+.habit-tile-img-btn {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.habit-tile-img-btn:hover:not(:disabled) { transform: translateY(-4px); }
+.habit-tile-img-btn:disabled { opacity: 0.7; cursor: default; }
+.habit-tile-img-btn.completed {
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+}
 
-.h-purple { background: #A87CC7; }
-.h-purple .habit-svg-holder { background: #D2BAE2; }
-
-.h-blue { background: #5A7C95; }
-.h-blue .habit-svg-holder { background: rgba(146, 189, 205, 0.76); }
-
-.h-olive { background: #858852; }
-.h-olive .habit-svg-holder { background: rgba(198, 205, 146, 0.76); }
+.habit-tile-img {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}
 
 /* ── Responsive ──────────────────────────────────────────────────
    .offers-grid and .habits-grid had zero breakpoints. .habits-grid in
@@ -244,18 +227,8 @@
     gap: 40px;
   }
 
-  .habit-box {
-    padding: 24px 12px;
-    gap: 10px;
-  }
-
-  .habit-svg-holder {
-    width: 70px;
-    height: 70px;
-  }
-
-  .habit-label {
-    font-size: 14px;
+  .habit-tile-img {
+    max-width: 130px;
   }
 
   .card-item {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import arrowIcon from "../assets/ri_arrow-drop-down-line.png";
+import mentallicoLogo from "../assets/mentallico-lockup.png";
 import { logout, getStoredUserName } from "../services/api";
 
 // Pages whose hero sits directly under the (transparent, absolutely
@@ -77,11 +78,9 @@ const Navbar = () => {
   // ─────────────────────────────────────────────────────────
   return (
     <header className="navbar">
-      <h1 className={`navbar-logo ${onDarkBg ? "navbar-logo--on-dark" : ""}`}>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          Mentallico
-        </Link>
-      </h1>
+      <Link to="/" className="navbar-logo-link">
+        <img src={mentallicoLogo} alt="Mentallico" className="navbar-logo-img" />
+      </Link>
 
       <button
         type="button"

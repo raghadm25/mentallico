@@ -13,6 +13,12 @@
     border-radius: 15px 15px 0 0;
     border: 3px solid #D2D5DE;
     background: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-container-highlighted .post-main-card {
+    border-color: #7F89E9;
+    box-shadow: 0 0 0 4px rgba(127, 137, 233, 0.25);
 }
 
 .post-header {

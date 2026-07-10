@@ -1,11 +1,14 @@
 import React from "react";
-import "./ExpertsSection.css"; 
+import { useNavigate } from "react-router-dom";
+import "./ExpertsSection.css";
 import aliImg from "../assets/AliSamir.png";
 import saraImg from "../assets/SaraHany.png";
 import mariahImg from "../assets/MariahHolland.png";
 import xavierImg from "../assets/XavierRoberto.png";
 
 const ExpertsSection = () => {
+  const navigate = useNavigate();
+
   const experts = [
     {
       id: 1,
@@ -38,7 +41,11 @@ const ExpertsSection = () => {
       <h2>Meet Our Experts</h2>
       <div className="experts-container">
         {experts.map((expert) => (
-          <div key={expert.id} className="expert-card">
+          <div
+            key={expert.id}
+            className="expert-card"
+            onClick={() => navigate(`/therapist/${expert.id}`)}
+          >
             <div className="image-wrapper">
               <img src={expert.image} alt={expert.name} />
             </div>

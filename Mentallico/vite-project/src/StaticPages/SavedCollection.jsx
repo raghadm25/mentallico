@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PostCard from '../Community/PostCard';
 import {
   listSavedPosts,
@@ -35,6 +36,7 @@ function formatDate(isoString) {
 }
 
 const SavedCollection = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState('posts');
 
   const [posts, setPosts] = useState([]);
@@ -199,6 +201,7 @@ const SavedCollection = () => {
               onToggleComments={() => handleToggleComments(post.id)}
               onAddComment={(text) => handleAddComment(post.id, text)}
               onDelete={() => handleDeletePost(post.id)}
+              onOpenPost={() => navigate('/Community', { state: { focusPostId: post.id } })}
             />
           ))}
         </div>

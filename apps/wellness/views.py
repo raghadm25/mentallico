@@ -79,6 +79,25 @@ class MoodCalendarView(APIView):
         return Response(MoodEntrySerializer(entry).data, status=status.HTTP_200_OK)
 
 
+class MoodEntryDetailView(APIView):
+    """
+    DELETE /api/v1/wellness/moods/<date>/
+        Removes that day's logged mood entirely.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, date):
+        parsed = _parse_date(date)
+        if not parsed:
+            return Response({"detail": "Invalid date."}, status=status.HTTP_400_BAD_REQUEST)
+
+        deleted, _ = MoodEntry.objects.filter(user=request.user, date=parsed).delete()
+        if not deleted:
+            return Response({"detail": "No mood logged for that date."}, status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 # ---------------------------------------------------------------------------
 # Journal entries
 # ---------------------------------------------------------------------------
@@ -179,6 +198,12 @@ class HabitListView(APIView):
         habit, created = Habit.objects.get_or_create(
             user=request.user, name=name, defaults={"icon_key": icon_key}
         )
+        if not created and not habit.is_active:
+            # Re-adding a habit that was previously removed — reactivate the
+            # existing row instead of leaving it invisible to future GETs
+            # (which filter on is_active=True).
+            habit.is_active = True
+            habit.save(update_fields=["is_active"])
         return Response(
             HabitSerializer(habit).data,
             status=status.HTTP_201_CREATED if created else status.HTTP_200_OK,
@@ -204,4 +229,48 @@ class HabitToggleView(APIView):
         if not created:
             completion.delete()
 
+        return Response(HabitSerializer(habit).data, status=status.HTTP_200_OK)
+
+
+class HabitDetailView(APIView):
+    """
+    DELETE /api/v1/wellness/habits/<id>/
+        Soft-deletes the habit (is_active=False) so it drops out of the
+        user's tracked list while preserving its HabitCompletion history.
+
+    PATCH /api/v1/wellness/habits/<id>/
+        Body: { "progress": <int 0-100> }
+        Directly sets the habit's user-controlled progress value — a plain
+        manual number, not derived from daily completions — clamped to the
+        valid 0-100 range regardless of what the client sends.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, habit_id):
+        try:
+            habit = Habit.objects.get(id=habit_id, user=request.user)
+        except Habit.DoesNotExist:
+            return Response({"detail": "Habit not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        habit.is_active = False
+        habit.save(update_fields=["is_active"])
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def patch(self, request, habit_id):
+        try:
+            habit = Habit.objects.get(id=habit_id, user=request.user)
+        except Habit.DoesNotExist:
+            return Response({"detail": "Habit not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        if "progress" not in request.data:
+            return Response({"detail": "progress is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            progress = int(request.data.get("progress"))
+        except (TypeError, ValueError):
+            return Response({"detail": "progress must be an integer."}, status=status.HTTP_400_BAD_REQUEST)
+
+        habit.progress = max(0, min(100, progress))
+        habit.save(update_fields=["progress"])
         return Response(HabitSerializer(habit).data, status=status.HTTP_200_OK)

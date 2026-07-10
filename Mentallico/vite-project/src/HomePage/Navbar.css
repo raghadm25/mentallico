@@ -12,16 +12,17 @@
   box-sizing: border-box;
 }
 
-.navbar-logo {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  color: #7F89E9;
-  margin: 0;
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.navbar-logo--on-dark {
-  color: #D2D5DE;
+.navbar-logo-img {
+  height: 68px;
+  width: auto;
+  display: block;
+  transform: translate(-14px, -6px);
 }
 
 
@@ -442,6 +443,13 @@
   .user-menu-wrapper,
   .navbar > a {
     display: none;
+  }
+
+  /* The logo link is also a direct <a> child of .navbar (like the old
+     Sign Up link the rule above was written for) — keep it visible.
+     Needs to match ".navbar > a"'s specificity to actually win. */
+  .navbar > a.navbar-logo-link {
+    display: flex;
   }
 
   .hamburger-btn {

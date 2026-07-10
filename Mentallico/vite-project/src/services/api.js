@@ -546,6 +546,11 @@ export async function logMood(mood, date) {
   return post("/wellness/moods/", date ? { mood, date } : { mood });
 }
 
+/** Removes a day's logged mood entirely. */
+export async function deleteMood(date) {
+  return del(`/wellness/moods/${date}/`);
+}
+
 /** @returns {{ start, end, entries: Array<{id, date, content}> }} journal entries in a date range */
 export async function getJournalWeek(startDate, days = 7) {
   return get(`/wellness/journal/?start=${startDate}&days=${days}`);
@@ -574,4 +579,14 @@ export async function createOrGetHabit(name, iconKey) {
 /** Toggle today's completion for a habit. @returns the updated habit summary */
 export async function toggleHabit(habitId) {
   return post(`/wellness/habits/${habitId}/toggle/`, {});
+}
+
+/** Soft-deletes a habit (drops it from the user's tracked list). */
+export async function deleteHabit(habitId) {
+  return del(`/wellness/habits/${habitId}/`);
+}
+
+/** Directly sets a habit's manual progress (0-100). @returns the updated habit summary */
+export async function updateHabitProgress(habitId, progress) {
+  return patch(`/wellness/habits/${habitId}/`, { progress });
 }

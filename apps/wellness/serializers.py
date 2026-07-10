@@ -27,8 +27,8 @@ class HabitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Habit
-        fields = ("id", "name", "icon_key", "is_completed_today", "completion_rate", "created_at")
-        read_only_fields = fields
+        fields = ("id", "name", "icon_key", "progress", "is_completed_today", "completion_rate", "created_at")
+        read_only_fields = ("id", "name", "icon_key", "is_completed_today", "completion_rate", "created_at")
 
     def get_is_completed_today(self, obj):
         today = timezone.localdate()

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './UserProfile.css';
 import janeDoeImg from '../assets/JaneDoe.png';
 import editIcon from "../assets/editIcon.png";
@@ -16,6 +16,9 @@ import r2 from '../assets/r2.png';
 import greenheart from '../assets/greenheart.png';
 import pinkbook from '../assets/pinkbook.png';
 import bluebreathe from '../assets/bluebreathe.png';
+
+import { FaSmokingBan, FaDumbbell, FaMoon, FaThumbsDown, FaPaintRoller } from 'react-icons/fa';
+import { MdSelfImprovement } from 'react-icons/md';
 
 // Brain-mascot mood icons — verified by visual inspection, only 5 distinct
 // expressions exist across the Group*.png set, reused here per matching mood.
@@ -36,8 +39,11 @@ import {
   saveJournalEntry,
   getMoodCalendar,
   logMood,
+  deleteMood,
   listHabits,
-  toggleHabit,
+  createOrGetHabit,
+  deleteHabit,
+  updateHabitProgress,
 } from '../services/api';
 
 const DAY_LABELS = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -45,10 +51,30 @@ const CALENDAR_HEADER_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 const RING_CIRCUMFERENCE = 722; // 2 * PI * 115, matches the SVG ring radius in CSS
 
 const HABIT_VISUALS = {
-  gratitude: { bgClass: 'gratitude-bg', progressClass: 'gratitude-progress', icon: greenheart, textClass: 'gratitude-text' },
-  reading: { bgClass: 'reading-bg', progressClass: 'reading-progress', icon: pinkbook, textClass: 'reading-text' },
-  breathing: { bgClass: 'breathing-bg', progressClass: 'breathing-progress', icon: bluebreathe, textClass: 'breathing-text' },
+  gratitude: { bgClass: 'gratitude-bg', progressClass: 'gratitude-progress', icon: greenheart, textClass: 'gratitude-text', isImg: true },
+  reading: { bgClass: 'reading-bg', progressClass: 'reading-progress', icon: pinkbook, textClass: 'reading-text', isImg: true },
+  breathing: { bgClass: 'breathing-bg', progressClass: 'breathing-progress', icon: bluebreathe, textClass: 'breathing-text', isImg: true },
+  smoking: { bgClass: 'smoking-bg', progressClass: 'smoking-progress', icon: FaSmokingBan, textClass: 'smoking-text' },
+  meditation: { bgClass: 'meditation-bg', progressClass: 'meditation-progress', icon: MdSelfImprovement, textClass: 'meditation-text' },
+  workout: { bgClass: 'workout-bg', progressClass: 'workout-progress', icon: FaDumbbell, textClass: 'workout-text' },
+  declutter: { bgClass: 'declutter-bg', progressClass: 'declutter-progress', icon: FaPaintRoller, textClass: 'declutter-text' },
+  sleep: { bgClass: 'sleep-bg', progressClass: 'sleep-progress', icon: FaMoon, textClass: 'sleep-text' },
+  selftalk: { bgClass: 'selftalk-bg', progressClass: 'selftalk-progress', icon: FaThumbsDown, textClass: 'selftalk-text' },
 };
+
+// Every habit the "Add a Habit" picker can offer. Anything already in the
+// user's own `habits` list is filtered out of the picker at render time.
+const HABIT_CATALOG = [
+  { name: 'Daily Gratitude', icon_key: 'gratitude' },
+  { name: '1 Hour Of Reading', icon_key: 'reading' },
+  { name: 'Breathing Exercises', icon_key: 'breathing' },
+  { name: 'Quit Smoking', icon_key: 'smoking' },
+  { name: 'Do Meditation Exercises', icon_key: 'meditation' },
+  { name: 'Workout', icon_key: 'workout' },
+  { name: 'Declutter', icon_key: 'declutter' },
+  { name: 'Quit Staying up late', icon_key: 'sleep' },
+  { name: 'Quit negative self talk', icon_key: 'selftalk' },
+];
 
 const MOOD_OPTIONS = [
   "happy", "calm", "motivated", "hopeful", "tired",
@@ -104,6 +130,7 @@ function buildMonthGrid(year, month) {
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const today = new Date();
   const todayISO = toISODate(today);
 
@@ -172,6 +199,7 @@ const UserProfile = () => {
   const [calendarMonth, setCalendarMonth] = useState(today.getMonth() + 1); // 1-12
   const [moodEntries, setMoodEntries] = useState({}); // { [date]: mood }
   const [moodPickerDate, setMoodPickerDate] = useState(null);
+  const [deletingMood, setDeletingMood] = useState(false);
 
   useEffect(() => {
     getMoodCalendar(calendarYear, calendarMonth)
@@ -213,33 +241,133 @@ const UserProfile = () => {
     }
   };
 
+  const handleDeleteMood = async () => {
+    if (!moodPickerDate) return;
+    setDeletingMood(true);
+    try {
+      await deleteMood(moodPickerDate);
+      setMoodEntries((prev) => {
+        const next = { ...prev };
+        delete next[moodPickerDate];
+        return next;
+      });
+    } catch {
+      // Non-critical inline feature — picker just closes without saving.
+    } finally {
+      setDeletingMood(false);
+      setMoodPickerDate(null);
+    }
+  };
+
   const monthCells = buildMonthGrid(calendarYear, calendarMonth);
   const monthName = new Date(calendarYear, calendarMonth - 1, 1)
     .toLocaleString('en-US', { month: 'long', year: 'numeric' });
 
   // ── Habits ─────────────────────────────────────────────────
   const [habits, setHabits] = useState([]);
-  const [togglingHabitId, setTogglingHabitId] = useState(null);
+  const [showAddHabitModal, setShowAddHabitModal] = useState(false);
+  const [addingHabitName, setAddingHabitName] = useState(null);
+  const [detailHabitId, setDetailHabitId] = useState(null);
+  const [removingHabit, setRemovingHabit] = useState(false);
 
   useEffect(() => {
-    // This section only has visuals for the 3 core habits — habits started
-    // elsewhere (e.g. the Resources page's "Start and Quit Habits" tiles)
-    // share the same backend table but shouldn't spill into this list.
+    // Only habits this page (or the Resources page's matching "Start and
+    // Quit Habits" tiles, which share the same names/icon keys) knows how
+    // to render get shown here — anything with an unrecognized icon_key
+    // stays out of this list instead of rendering with no visuals.
     listHabits()
       .then((data) => setHabits(data.filter((h) => h.icon_key in HABIT_VISUALS)))
       .catch(() => {});
   }, []);
 
-  const handleToggleHabit = async (habitId) => {
-    if (togglingHabitId) return;
-    setTogglingHabitId(habitId);
+  // Arriving from the Resources page's "Start and Quit Habits" tiles passes
+  // `focusHabitName` in navigation state — scroll to this section and open
+  // that habit's detail view directly instead of leaving the user to find
+  // it themselves in the grid.
+  useEffect(() => {
+    const focusName = location.state?.focusHabitName;
+    if (!focusName || habits.length === 0) return;
+
+    const match = habits.find((h) => h.name === focusName);
+    if (!match) return;
+
+    setDetailHabitId(match.id);
+    document.querySelector('.habits-progress-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Clear the nav state so a later refresh/back-navigation doesn't reopen it.
+    navigate(location.pathname, { replace: true, state: {} });
+  }, [habits, location.state]);
+
+  // Catalog entries not already in the user's own habit list.
+  const availableHabitTemplates = HABIT_CATALOG.filter(
+    (template) => !habits.some((h) => h.name === template.name)
+  );
+  const detailHabit = habits.find((h) => h.id === detailHabitId) || null;
+
+  const handleAddHabit = async (template) => {
+    if (addingHabitName) return;
+    setAddingHabitName(template.name);
     try {
-      const updated = await toggleHabit(habitId);
+      const habit = await createOrGetHabit(template.name, template.icon_key);
+      setHabits((prev) => [...prev, habit]);
+    } catch {
+      // Non-critical inline feature — the picker just doesn't gain the row.
+    } finally {
+      setAddingHabitName(null);
+    }
+  };
+
+  const handleRemoveHabit = async (habitId) => {
+    if (removingHabit) return;
+    setRemovingHabit(true);
+    try {
+      await deleteHabit(habitId);
+      setHabits((prev) => prev.filter((h) => h.id !== habitId));
+      setDetailHabitId(null);
+    } catch {
+      // Non-critical inline feature — leave the habit as-is if this fails.
+    } finally {
+      setRemovingHabit(false);
+    }
+  };
+
+  // Manual 0-100 progress — a plain user-set number, not derived from daily
+  // completions, so it can land on any value rather than snapping to the
+  // ~14%-per-day increments a 7-day completion rate would be limited to.
+  const [adjustingProgress, setAdjustingProgress] = useState(false);
+  // { habitId, value } while a slider drag is in flight, so the UI tracks
+  // the pointer smoothly and only hits the API once the drag is released.
+  const [pendingProgress, setPendingProgress] = useState(null);
+
+  const handleAdjustProgress = async (habitId, delta) => {
+    if (adjustingProgress) return;
+    const habit = habits.find((h) => h.id === habitId);
+    if (!habit) return;
+    const newValue = Math.max(0, Math.min(100, habit.progress + delta));
+    setAdjustingProgress(true);
+    try {
+      const updated = await updateHabitProgress(habitId, newValue);
       setHabits((prev) => prev.map((h) => (h.id === habitId ? updated : h)));
     } catch {
-      // Non-critical inline feature — toggle just doesn't stick.
+      // Non-critical inline feature — leave the value as-is if this fails.
     } finally {
-      setTogglingHabitId(null);
+      setAdjustingProgress(false);
+    }
+  };
+
+  const handleProgressSliderChange = (habitId, value) => {
+    setPendingProgress({ habitId, value: Number(value) });
+  };
+
+  const handleProgressSliderCommit = async (habitId) => {
+    if (!pendingProgress || pendingProgress.habitId !== habitId) return;
+    const { value } = pendingProgress;
+    try {
+      const updated = await updateHabitProgress(habitId, value);
+      setHabits((prev) => prev.map((h) => (h.id === habitId ? updated : h)));
+    } catch {
+      // Non-critical inline feature — slider reverts to the last saved value.
+    } finally {
+      setPendingProgress(null);
     }
   };
 
@@ -403,15 +531,17 @@ const UserProfile = () => {
             <div key={day} className="calendar-header-day">{day}</div>
           ))}
 
-          {monthCells.map((cell, index) => (
+          {monthCells.map((cell, index) => {
+            const isFuture = cell.inMonth && cell.date > todayISO;
+            return (
             <div key={index} className="calendar-cell">
               {cell.inMonth ? (
-                moodEntries[cell.date] ? (
+                moodEntries[cell.date] && !isFuture ? (
                   <button
                     type="button"
                     className="mood-icon-btn"
                     onClick={() => setMoodPickerDate(cell.date)}
-                    title={moodEntries[cell.date]}
+                    data-tooltip={moodEntries[cell.date]}
                   >
                     <img
                       src={MOOD_ICONS[moodEntries[cell.date]]}
@@ -424,6 +554,7 @@ const UserProfile = () => {
                     type="button"
                     className={`inactive-day-btn${cell.date === todayISO ? ' today' : ''}`}
                     onClick={() => setMoodPickerDate(cell.date)}
+                    disabled={isFuture}
                   >
                     {cell.day}
                   </button>
@@ -432,7 +563,8 @@ const UserProfile = () => {
                 <span className="inactive-day dim">{cell.day}</span>
               )}
             </div>
-          ))}
+            );
+          })}
 
           {moodPickerDate && (
             <div className="mood-picker-overlay" onClick={() => setMoodPickerDate(null)}>
@@ -447,6 +579,15 @@ const UserProfile = () => {
                     </button>
                   ))}
                 </div>
+                {moodEntries[moodPickerDate] && (
+                  <button
+                    className="mood-picker-delete"
+                    onClick={handleDeleteMood}
+                    disabled={deletingMood}
+                  >
+                    {deletingMood ? 'Removing…' : 'Remove logged mood'}
+                  </button>
+                )}
                 <button className="mood-picker-close" onClick={() => setMoodPickerDate(null)}>Cancel</button>
               </div>
             </div>
@@ -474,14 +615,14 @@ const UserProfile = () => {
         <div className="habits-container">
           {habits.map((habit) => {
             const visuals = HABIT_VISUALS[habit.icon_key] || HABIT_VISUALS.gratitude;
-            const dashoffset = RING_CIRCUMFERENCE * (1 - habit.completion_rate / 100);
+            const Icon = visuals.isImg ? null : visuals.icon;
+            const dashoffset = RING_CIRCUMFERENCE * (1 - habit.progress / 100);
             return (
               <div className="habit-item" key={habit.id}>
                 <div
-                  className={`habit-card ${visuals.bgClass}${habit.is_completed_today ? ' completed' : ''}`}
-                  onClick={() => handleToggleHabit(habit.id)}
-                  style={{ cursor: togglingHabitId ? 'default' : 'pointer' }}
-                  title={habit.is_completed_today ? 'Completed today — click to undo' : 'Click to mark as done today'}
+                  className={`habit-card ${visuals.bgClass}${habit.progress >= 100 ? ' completed' : ''}`}
+                  onClick={() => setDetailHabitId(habit.id)}
+                  title="View progress"
                 >
                   <svg className="progress-ring" viewBox="0 0 270 270">
                     <circle className="progress-ring-circle progress-ring-bg" cx="135" cy="135" r="115" />
@@ -493,15 +634,155 @@ const UserProfile = () => {
                       style={{ strokeDashoffset: dashoffset }}
                     />
                   </svg>
-                  <img src={visuals.icon} alt={habit.name} className="habit-icon" />
-                  {habit.is_completed_today && <span className="habit-checkmark">✓</span>}
+                  {visuals.isImg
+                    ? <img src={visuals.icon} alt={habit.name} className="habit-icon" />
+                    : <Icon className="habit-icon habit-icon-svg" />}
                 </div>
                 <p className={`habit-name ${visuals.textClass}`}>{habit.name}</p>
               </div>
             );
           })}
+
+          <div className="habit-item">
+            <button
+              type="button"
+              className="habit-card add-habit-card"
+              onClick={() => setShowAddHabitModal(true)}
+              aria-label="Add a habit"
+            >
+              <span className="add-habit-plus">+</span>
+            </button>
+            <p className="habit-name add-habit-label">Add Habit</p>
+          </div>
         </div>
       </section>
+
+      {/* Add-a-Habit picker */}
+      {showAddHabitModal && (
+        <div className="habit-modal-backdrop" onClick={() => setShowAddHabitModal(false)}>
+          <div className="habit-modal add-habit-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="habit-modal-handle" />
+            <div className="add-habit-modal-header">
+              <h3>Add a Habit</h3>
+              <button
+                type="button"
+                className="habit-modal-close"
+                onClick={() => setShowAddHabitModal(false)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="add-habit-list">
+              {availableHabitTemplates.length === 0 && (
+                <p className="add-habit-empty">You've added every habit we track right now.</p>
+              )}
+              {availableHabitTemplates.map((template) => {
+                const visuals = HABIT_VISUALS[template.icon_key];
+                const Icon = visuals.isImg ? null : visuals.icon;
+                return (
+                  <div className="add-habit-row" key={template.name}>
+                    <div className="add-habit-row-left">
+                      <span className={`add-habit-icon-badge ${visuals.bgClass}`}>
+                        {visuals.isImg
+                          ? <img src={visuals.icon} alt="" className="add-habit-icon-img" />
+                          : <Icon className="add-habit-icon-svg" />}
+                      </span>
+                      <span className="add-habit-row-name">{template.name}</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="add-habit-plus-btn"
+                      onClick={() => handleAddHabit(template)}
+                      disabled={addingHabitName === template.name}
+                      aria-label={`Add ${template.name}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Habit detail / progress / remove */}
+      {detailHabit && (() => {
+        const visuals = HABIT_VISUALS[detailHabit.icon_key] || HABIT_VISUALS.gratitude;
+        const Icon = visuals.isImg ? null : visuals.icon;
+        // While a slider drag is in flight, track the live pointer value
+        // instead of the last-saved one so the UI moves smoothly.
+        const pct = pendingProgress?.habitId === detailHabit.id
+          ? pendingProgress.value
+          : detailHabit.progress;
+        return (
+          <div className="habit-modal-backdrop" onClick={() => setDetailHabitId(null)}>
+            <div className="habit-modal habit-detail-modal" onClick={(e) => e.stopPropagation()}>
+              <div className="habit-modal-handle" />
+
+              <div className={`habit-detail-tile ${visuals.bgClass}`}>
+                {visuals.isImg
+                  ? <img src={visuals.icon} alt={detailHabit.name} className="habit-icon" />
+                  : <Icon className="habit-icon habit-icon-svg" />}
+              </div>
+
+              <h3 className="habit-detail-name">{detailHabit.name}</h3>
+              <p className="habit-detail-percent">{pct}% complete</p>
+
+              <div className="habit-detail-progress-track">
+                <div className="habit-detail-progress-fill" style={{ width: `${pct}%` }} />
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={pct}
+                  className="habit-detail-progress-slider"
+                  onChange={(e) => handleProgressSliderChange(detailHabit.id, e.target.value)}
+                  onMouseUp={() => handleProgressSliderCommit(detailHabit.id)}
+                  onTouchEnd={() => handleProgressSliderCommit(detailHabit.id)}
+                  aria-label={`${detailHabit.name} progress, 0 to 100`}
+                />
+              </div>
+
+              <div className="habit-detail-controls">
+                <button
+                  type="button"
+                  className="habit-detail-step-btn"
+                  onClick={() => handleAdjustProgress(detailHabit.id, -1)}
+                  disabled={adjustingProgress || pct <= 0}
+                  aria-label="Decrease progress by 1"
+                >
+                  −
+                </button>
+                <div className="habit-detail-percent-stack">
+                  <span className="habit-detail-percent-big">{pct}%</span>
+                  <span className="habit-detail-progress-caption">Progress</span>
+                </div>
+                <button
+                  type="button"
+                  className="habit-detail-step-btn"
+                  onClick={() => handleAdjustProgress(detailHabit.id, 1)}
+                  disabled={adjustingProgress || pct >= 100}
+                  aria-label="Increase progress by 1"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                type="button"
+                className="habit-detail-remove"
+                onClick={() => handleRemoveHabit(detailHabit.id)}
+                disabled={removingHabit}
+              >
+                🗑 Remove from my habits
+              </button>
+            </div>
+          </div>
+        );
+      })()}
 
     </div>
   );

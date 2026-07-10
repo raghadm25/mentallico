@@ -5,8 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -50px; 
-  position: relative; 
+  position: relative;
   z-index: 10;
 }
 

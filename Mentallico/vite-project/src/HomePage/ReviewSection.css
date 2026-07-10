@@ -165,7 +165,8 @@
 .star-icon { width: 18px; height: 18px; }
 
 @media (max-width: 1200px) {
-  .cards-container { flex-direction: column; }
-  .arrow-btn { display: none; }
+  /* Only the middle (primary) card is shown — arrows stay active so the
+     other reviews are still reachable, just one at a time. */
+  .review-card.base-card { display: none; }
   .review-card { width: 100%; max-width: 350px; }
 }

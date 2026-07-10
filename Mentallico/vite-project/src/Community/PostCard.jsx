@@ -5,6 +5,7 @@ import commentIcon from '../assets/comment.png';
 import savedIcon from '../assets/saved.png';
 
 const PostCard = ({
+  postId,
   name,
   date,
   content,
@@ -22,11 +23,13 @@ const PostCard = ({
   comments,
   commentsLoading,
   commentPending,
+  highlighted,
   onLike,
   onSave,
   onToggleComments,
   onAddComment,
   onDelete,
+  onOpenPost,
 }) => {
   const [commentText, setCommentText] = useState('');
 
@@ -38,15 +41,23 @@ const PostCard = ({
     setCommentText('');
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
     if (window.confirm('Delete this post? This cannot be undone.')) {
       onDelete();
     }
   };
 
   return (
-    <div className="post-container">
-      <div className="post-main-card">
+    <div
+      className={`post-container${highlighted ? ' post-container-highlighted' : ''}`}
+      data-post-id={postId}
+    >
+      <div
+        className="post-main-card"
+        onClick={onOpenPost}
+        style={onOpenPost ? { cursor: 'pointer' } : undefined}
+      >
         <div className="post-header">
           <div className="user-info">
             <img src={avatar} className="user-avatar" alt={name} />

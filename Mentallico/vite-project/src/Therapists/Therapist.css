@@ -2,7 +2,7 @@
 
 .therapist-page-container {
     font-family: 'Inter', sans-serif;
-    padding: 60px 8%;
+    padding: 150px 8% 60px;
     background-color: #fdfdff;
     min-height: 100vh;
 }

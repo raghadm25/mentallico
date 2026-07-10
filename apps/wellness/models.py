@@ -3,6 +3,7 @@ Personal self-tracking models for the User Profile page:
 daily mood log, freeform journal entries, and habit completion tracking.
 """
 from django.conf import settings
+from django.core.validators import MaxValueValidator
 from django.db import models
 
 
@@ -72,6 +73,12 @@ class Habit(models.Model):
         max_length=50,
         blank=True,
         help_text="Frontend icon/theme identifier, e.g. 'gratitude', 'reading', 'breathing'.",
+    )
+    progress = models.PositiveSmallIntegerField(
+        default=0,
+        validators=[MaxValueValidator(100)],
+        help_text="User-controlled progress (0-100), adjusted directly via +/- in the UI "
+        "rather than derived from daily completions.",
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

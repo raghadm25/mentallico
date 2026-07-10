@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Community.module.css';
 import PostCard from './PostCard';
 import {
@@ -42,6 +42,7 @@ function toViewPost(post) {
 
 const Community = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,6 +50,7 @@ const Community = () => {
   const [posting, setPosting] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [highlightedPostId, setHighlightedPostId] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -65,6 +67,33 @@ const Community = () => {
     })();
     return () => { cancelled = true; };
   }, []);
+
+  // Arriving from Saved Collection's "Saved Posts" tab passes `focusPostId`
+  // in navigation state — scroll straight to that post in the feed and
+  // briefly highlight it instead of leaving the user to hunt for it.
+  useEffect(() => {
+    const focusId = location.state?.focusPostId;
+    if (!focusId || posts.length === 0) return;
+
+    const match = posts.find((p) => p.id === focusId);
+    if (!match) return;
+
+    setHighlightedPostId(focusId);
+    document
+      .querySelector(`[data-post-id="${focusId}"]`)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Clear the nav state so a later refresh/back-navigation doesn't reopen it.
+    navigate(location.pathname, { replace: true, state: {} });
+  }, [posts, location.state]);
+
+  // Kept separate from the effect above: that one re-runs the instant the
+  // nav state is cleared (it's a dependency), which would cancel this timer
+  // before it ever fired if it lived in the same effect.
+  useEffect(() => {
+    if (!highlightedPostId) return;
+    const timer = setTimeout(() => setHighlightedPostId(null), 2500);
+    return () => clearTimeout(timer);
+  }, [highlightedPostId]);
 
   const updatePost = (postId, updater) => {
     setPosts((prev) => prev.map((p) => (p.id === postId ? updater(p) : p)));
@@ -275,6 +304,8 @@ const Community = () => {
           {!loading && posts.map((post) => (
             <PostCard
               key={post.id}
+              postId={post.id}
+              highlighted={post.id === highlightedPostId}
               name={post.display_name}
               date={formatDate(post.created_at)}
               avatar={post.avatar_url || DEFAULT_AVATAR}
