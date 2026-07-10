@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentallico — Therapist Panel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    color: #1a202c;
+  }
+
+  header {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  h1 { font-size: 1.3rem; font-weight: 700; color: #2d3748; }
+  h1 span { color: #667eea; }
+
+  #status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #718096;
+    transition: all 0.3s;
+  }
+
+  #status-badge.connected { background: #c6f6d5; color: #276749; }
+  #status-badge.speaking  { background: #bee3f8; color: #2a69ac; }
+  #status-badge.error     { background: #fed7d7; color: #c53030; }
+
+  #dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #a0aec0;
+    transition: background 0.3s;
+  }
+  .connected #dot { background: #38a169; }
+  .speaking  #dot { background: #3182ce; animation: pulse 1s infinite; }
+  .error     #dot { background: #e53e3e; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  .card {
+    width: 100%;
+    max-width: 680px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+  }
+
+  .card label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #718096;
+    margin-bottom: 8px;
+  }
+
+  #server-url {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #2d3748;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #server-url:focus { border-color: #667eea; }
+
+  #message {
+    width: 100%;
+    min-height: 130px;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2d3748;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+
+  #message:focus { border-color: #667eea; }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 10px;
+  }
+
+  .hint {
+    font-size: 0.78rem;
+    color: #a0aec0;
+  }
+
+  #send-btn {
+    padding: 12px 32px;
+    background: #667eea;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  #send-btn:hover:not(:disabled) { background: #5a67d8; }
+  #send-btn:active:not(:disabled) { transform: scale(0.97); }
+  #send-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+
+  #history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .history-item {
+    background: #f7fafc;
+    border-left: 4px solid #667eea;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: #4a5568;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .history-item .meta {
+    font-size: 0.72rem;
+    color: #a0aec0;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mood-tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .mood-empathy   { background: #bee3f8; color: #2a69ac; }
+  .mood-concern   { background: #feebc8; color: #c05621; }
+  .mood-smile     { background: #c6f6d5; color: #276749; }
+  .mood-thoughtful{ background: #e9d8fd; color: #6b46c1; }
+  .mood-neutral   { background: #e2e8f0; color: #718096; }
+
+  #no-history {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.88rem;
+    padding: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mentallico <span>Therapist Panel</span></h1>
+  <div id="status-badge">
+    <span id="dot"></span>
+    <span id="status-text">Not connected</span>
+  </div>
+</header>
+
+<!-- Server config -->
+<div class="card">
+  <label>VR Server URL (paste from Unity Console)</label>
+  <input id="server-url" type="text" placeholder="http://192.168.x.x:7777"
+         value="http://localhost:7777" />
+</div>
+
+<!-- Message input -->
+<div class="card">
+  <label>Your Response</label>
+  <textarea id="message" placeholder="Type what you want the avatar to say…"></textarea>
+  <div class="row">
+    <span class="hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</span>
+    <button id="send-btn">Send</button>
+  </div>
+</div>
+
+<!-- History -->
+<div class="card">
+  <label>Sent Messages</label>
+  <div id="history"><p id="no-history">No messages sent yet.</p></div>
+</div>
+
+<script>
+  // Auto-fill server URL when page is served directly from Unity
+  if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.port) {
+    document.getElementById('server-url').value = `http://${location.hostname}:${location.port}`;
+  }
+
+  const urlInput  = document.getElementById('server-url');
+  const msgInput  = document.getElementById('message');
+  const sendBtn   = document.getElementById('send-btn');
+  const statusBadge = document.getElementById('status-badge');
+  const statusText  = document.getElementById('status-text');
+  const historyEl   = document.getElementById('history');
+  const noHistory   = document.getElementById('no-history');
+
+  let statusTimer;
+
+  // ── Status polling ────────────────────────────────────────────────────────
+
+  function serverUrl() {
+    return urlInput.value.replace(/\/$/, '');
+  }
+
+  async function pollStatus() {
+    try {
+      const r = await fetch(serverUrl() + '/status', { signal: AbortSignal.timeout(1500) });
+      const d = await r.json();
+      if (d.speaking) {
+        setStatus('speaking', 'Speaking…');
+        sendBtn.disabled = true;
+      } else {
+        setStatus('connected', 'Connected');
+        sendBtn.disabled = false;
+      }
+    } catch {
+      setStatus('error', 'Not reachable');
+      sendBtn.disabled = false;
+    }
+  }
+
+  function setStatus(cls, text) {
+    statusBadge.className = cls;
+    statusText.textContent = text;
+  }
+
+  setInterval(pollStatus, 2000);
+  pollStatus();
+
+  // ── Send ──────────────────────────────────────────────────────────────────
+
+  async function sendMessage() {
+    const text = msgInput.value.trim();
+    if (!text) return;
+
+    sendBtn.disabled = true;
+    setStatus('speaking', 'Sending…');
+
+    try {
+      const r = await fetch(serverUrl() + '/speak', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+        signal: AbortSignal.timeout(5000)
+      });
+
+      if (r.ok) {
+        addHistory(text);
+        msgInput.value = '';
+        msgInput.focus();
+      } else {
+        setStatus('error', 'Send failed');
+        sendBtn.disabled = false;
+      }
+    } catch (e) {
+      setStatus('error', 'Not reachable');
+      sendBtn.disabled = false;
+    }
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+
+  msgInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // ── History ───────────────────────────────────────────────────────────────
+
+  const MOOD_KEYWORDS = {
+    empathy:    ['understand','i hear','you feel','that sounds','makes sense','valid','natural to feel','here for you'],
+    concern:    ['concern','worried','difficult','hard time','struggle','pain','loss','hurt','heavy','overwhelming'],
+    smile:      ['proud','progress','wonderful','great job','positive','growth','strength','hope','well done','glad'],
+    thoughtful: ['think about','consider','perhaps','explore','what if','interesting','wonder','reflect','maybe']
+  };
+
+  function detectMood(text) {
+    const t = text.toLowerCase();
+    for (const [mood, kws] of Object.entries(MOOD_KEYWORDS))
+      if (kws.some(kw => t.includes(kw))) return mood;
+    return 'neutral';
+  }
+
+  function addHistory(text) {
+    noHistory?.remove();
+    const mood = detectMood(text);
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.innerHTML = `
+      <div class="meta">
+        <span>${time}</span>
+        <span class="mood-tag mood-${mood}">${mood}</span>
+      </div>
+      <div>${escHtml(text)}</div>`;
+    historyEl.prepend(item);
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>
